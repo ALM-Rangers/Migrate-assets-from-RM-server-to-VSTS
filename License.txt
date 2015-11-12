@@ -1,5 +1,5 @@
 
-[Insert Name of Sample Tooling Solution]
+Migrate assets from RM server to TFS 
 
 The MIT License (MIT)
 
