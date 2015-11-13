@@ -26,4 +26,4 @@ However, since both of them leverage Powershell heavily, it is possible to at le
 
 ### Notices ###
 
-Notices for certain third party software included in this extension are provided here: [Third Party Notice](ThirdPartyNotices.txt).
+Notices for certain third party software included in this solution are provided here: [Third Party Notice](ThirdPartyNotices.txt).
