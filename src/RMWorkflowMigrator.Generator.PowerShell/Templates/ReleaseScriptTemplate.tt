@@ -1,0 +1,30 @@
+﻿<#@ parameter type="System.Collections.Generic.IEnumerable<string>" name= "releaseActions" #>
+<#@ parameter type="System.Collections.Generic.IEnumerable<ScriptAction>" name= "components" #>
+<#@ parameter type="System.Collections.Generic.List<ConfigurationVariable>" name= "scriptParams" #>
+<#@ parameter type="System.Boolean" name= "generateInitializationScript" #>
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #> 
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="DataAccess.Model" #>
+<#@ import namespace="Model" #>
+<#if (!generateInitializationScript) {#>
+# To call this script from Release Management, use the arguments
+# <#=string.Join(" ", scriptParams.Where(s => !string.IsNullOrWhiteSpace(s.Value)).Select(sp => "-" + sp.RemappedName + " \"" + sp.Value + "\""))#>
+# Also include a value for the $DeployerToolsPath variable, and the binary drop location for any $ComponentPath variables.
+param(
+<#foreach (var scriptParam in scriptParams) {#>
+$<#=scriptParam.RemappedName#>, # <#=scriptParam.Value#>
+<#}#>
+<#foreach (var component in components) {#>
+$ComponentPath<#=component.Sequence#>, # Path to <#=component.DisplayName#>
+<#}#>
+$DeployerToolsPath # The path to the folder that contains the deployment tools
+)
+<#}#>
+$basePath = (Get-Location).Path
+<#foreach (var action in releaseActions) {#>
+<#=action#>
+<#}#>

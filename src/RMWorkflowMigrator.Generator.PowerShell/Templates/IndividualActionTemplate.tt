@@ -1,0 +1,70 @@
+﻿<#@ parameter type="Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Model.ScriptAction" name= "action" #>
+<#@ parameter type="System.Collections.Generic.IEnumerable<ScriptAction>" name= "components" #>
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="DataAccess.Model" #>
+<#@ import namespace="Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Model" #>
+
+# <#=action.DisplayName#>
+# Parameters:    
+<#foreach (var configVar in action.ConfigurationVariables.Where(cv => cv.IsParameter)) {#>
+  # <#=configVar.RemappedName#>: <#=configVar.Value#>
+<#}#>
+<#if (action.IsComponent && action.ConfigurationVariables.Any(cv => !cv.IsParameter)) {#>
+# Configuration Variables:
+<#foreach (var configVar in action.ConfigurationVariables.Where(cv => !cv.IsParameter)) {#>
+  # <#=configVar.RemappedName#>: <#=configVar.Value#>
+<#}#>
+<#}#>
+try {
+    Write-Output "Executing <#=action.DisplayName#>"
+<#if (action.IsComponent) {
+var hasConfigVariables = action.ConfigurationVariables.Any(cv => !cv.IsParameter);
+var configVariables = action.ConfigurationVariables.Where(cv => !cv.IsParameter);
+if (hasConfigVariables) {#>
+    $configVariables = @{
+<#foreach (var configVariable in configVariables) {#>
+        "__<#=configVariable.OriginalName#>__" = $<#=configVariable.RemappedName#>
+<#}#>
+    }
+<#}
+if ((action.VariableReplacementMethod == VariableReplacementMethod.BeforeInstallation || action.VariableReplacementMethod == VariableReplacementMethod.BeforeAndAfterInstallation) && hasConfigVariables) {#>
+    # Perform token replacement before installation
+	&"$(join-path $DeployerToolsPath "TokenizationScript.ps1")" -FilePath $ComponentPath<#=action.Sequence#> -FileSpec "<#=action.FileExtensionFilter#>" -Values $configVariables
+
+<#}
+if (action.DeployerToolId != 0) {#>
+    cd $ComponentPath<#=action.Sequence#>
+    &"$(join-path $DeployerToolsPath "<#=action.Command#>")" <#=action.Arguments#>
+    cd $basePath    
+<#}
+else {#>
+    &"$(join-path $DeployerToolsPath "<#=action.Command#>")" <#=action.Arguments#>
+<#}#>
+<#if ((action.VariableReplacementMethod == VariableReplacementMethod.AfterInstallation || action.VariableReplacementMethod == VariableReplacementMethod.BeforeAndAfterInstallation) && hasConfigVariables) {
+var targetPath = action.ConfigurationVariables.First(cv => cv.OriginalName == "Installation Path").RemappedName;
+#>
+
+    # Perform token replacement after installation
+    &"$(join-path $DeployerToolsPath "TokenizationScript.ps1")" -FilePath $<#=targetPath#> -FileSpec "<#=action.FileExtensionFilter#>" -Values $configVariables
+<#}#>
+<#} else {#>
+    &"$(join-path $DeployerToolsPath "<#=action.Command#>")" <#=action.Arguments#>
+<#}#>
+}
+catch {
+    Write-output "<#=action.DisplayName#> failed. Error:"
+    write-output $_
+<#if (action.RollbackScripts.Any()) {#>
+Write-output "Executing rollback script(s)"
+<#if (action.IsComponent) { #>
+    cd $basePath
+<#}#>
+<#foreach (var script in action.RollbackScripts) {#>
+    .\\<#=script.Key#>.ps1 <#=string.Join(" ", script.Value.OrderBy(rsa => rsa.Sequence).SelectMany(rsa => rsa.ConfigurationVariables).Where(s => !string.IsNullOrWhiteSpace(s.Value) && s.IsParameter).Select(s => "-" + s.RemappedName + " \"$" + s.RemappedName + "\""))#> <#=string.Join(" ", script.Value.Where(s => s.IsComponent).Select(c => $"-ComponentPath{c.Sequence} $ComponentPath{c.Sequence}"))#> -DeployerToolsPath $DeployerToolsPath
+<#}#>
+<#}#>
+    exit 1
+}
+Write-Output ""

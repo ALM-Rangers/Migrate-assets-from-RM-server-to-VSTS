@@ -1,0 +1,16 @@
+﻿<#@ parameter type="Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Model.ScriptManualIntervention" name= "manualIntervention" #>
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="DataAccess.Model" #>
+# Manual Intervention: <#=manualIntervention.DisplayName#>
+<#if (manualIntervention.IsTargetGroup) {#>
+# Group: <#=manualIntervention.Target#>
+<#}
+else {#>
+# User: <#=manualIntervention.Target#>
+<#}#>
+\<#
+<#=manualIntervention.InterventionText#>
+\#>
+# This manual intervention cannot be converted. Please see the guidance documentation for how to adapt your deployment process.

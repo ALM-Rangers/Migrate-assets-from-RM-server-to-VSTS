@@ -1,0 +1,30 @@
+﻿param(
+$FileSpec,
+$FilePath,
+$Values
+)
+
+try {
+	$files = gci -Path $FilePath -Filter $FileSpec -Recurse
+	Write-Output "Found files:" 
+
+	Write-Output ($files | select-object -expandproperty FullName)
+	$files | % {
+		$contents = Get-Content $_.FullName
+		$changedContents = $false
+		foreach ($key in $Values.Keys) {
+			if ($contents.Contains($key)) {
+				Write-Output "$($_.FullName) contains `"$key`". Replacing it with `"$($Values[$key])`""
+				$contents = $contents.Replace($key, $Values[$key])
+				$changedContents = $true
+			}
+		}
+		if ($changedContents) {
+			set-content -Path $_.FullName -Value $contents
+		}
+	}
+}
+catch {
+	Write-Output $_
+	throw $_
+}
