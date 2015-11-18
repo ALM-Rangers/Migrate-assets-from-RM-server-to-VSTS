@@ -18,7 +18,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+    #line 1 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
     public partial class IndividualActionTemplate : IndividualActionTemplateBase
     {
@@ -30,89 +30,89 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Templates
         {
             this.Write("\r\n# ");
             
-            #line 9 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 9 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.DisplayName));
             
             #line default
             #line hidden
             this.Write("\r\n# Parameters:    \r\n");
             
-            #line 11 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 11 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 foreach (var configVar in action.ConfigurationVariables.Where(cv => cv.IsParameter)) {
             
             #line default
             #line hidden
             this.Write("  # ");
             
-            #line 12 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 12 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(configVar.RemappedName));
             
             #line default
             #line hidden
             this.Write(": ");
             
-            #line 12 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 12 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(configVar.Value));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 13 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 13 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
             
             #line default
             #line hidden
             
-            #line 14 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 14 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 if (action.IsComponent && action.ConfigurationVariables.Any(cv => !cv.IsParameter)) {
             
             #line default
             #line hidden
             this.Write("# Configuration Variables:\r\n");
             
-            #line 16 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 16 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 foreach (var configVar in action.ConfigurationVariables.Where(cv => !cv.IsParameter)) {
             
             #line default
             #line hidden
             this.Write("  # ");
             
-            #line 17 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 17 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(configVar.RemappedName));
             
             #line default
             #line hidden
             this.Write(": ");
             
-            #line 17 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 17 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(configVar.Value));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 18 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 18 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
             
             #line default
             #line hidden
             
-            #line 19 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 19 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("try {\r\n    Write-Output \"Executing ");
             
-            #line 21 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 21 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.DisplayName));
             
             #line default
             #line hidden
             this.Write("\"\r\n");
             
-            #line 22 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 22 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 if (action.IsComponent) {
 var hasConfigVariables = action.ConfigurationVariables.Any(cv => !cv.IsParameter);
 var configVariables = action.ConfigurationVariables.Where(cv => !cv.IsParameter);
@@ -122,35 +122,35 @@ if (hasConfigVariables) {
             #line hidden
             this.Write("    $configVariables = @{\r\n");
             
-            #line 27 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 27 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 foreach (var configVariable in configVariables) {
             
             #line default
             #line hidden
             this.Write("        \"__");
             
-            #line 28 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 28 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(configVariable.OriginalName));
             
             #line default
             #line hidden
             this.Write("__\" = $");
             
-            #line 28 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 28 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(configVariable.RemappedName));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 29 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 29 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("    }\r\n");
             
-            #line 31 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 31 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
 if ((action.VariableReplacementMethod == VariableReplacementMethod.BeforeInstallation || action.VariableReplacementMethod == VariableReplacementMethod.BeforeAndAfterInstallation) && hasConfigVariables) {
             
@@ -159,21 +159,21 @@ if ((action.VariableReplacementMethod == VariableReplacementMethod.BeforeInstall
             this.Write("    # Perform token replacement before installation\r\n\t&\"$(join-path $DeployerTool" +
                     "sPath \"TokenizationScript.ps1\")\" -FilePath $ComponentPath");
             
-            #line 34 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 34 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.Sequence));
             
             #line default
             #line hidden
             this.Write(" -FileSpec \"");
             
-            #line 34 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 34 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.FileExtensionFilter));
             
             #line default
             #line hidden
             this.Write("\" -Values $configVariables\r\n\r\n");
             
-            #line 36 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 36 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
 if (action.DeployerToolId != 0) {
             
@@ -181,28 +181,28 @@ if (action.DeployerToolId != 0) {
             #line hidden
             this.Write("    cd $ComponentPath");
             
-            #line 38 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 38 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.Sequence));
             
             #line default
             #line hidden
             this.Write("\r\n    &\"$(join-path $DeployerToolsPath \"");
             
-            #line 39 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 39 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.Command));
             
             #line default
             #line hidden
             this.Write("\")\" ");
             
-            #line 39 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 39 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.Arguments));
             
             #line default
             #line hidden
             this.Write("\r\n    cd $basePath    \r\n");
             
-            #line 41 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 41 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
 else {
             
@@ -210,27 +210,27 @@ else {
             #line hidden
             this.Write("    &\"$(join-path $DeployerToolsPath \"");
             
-            #line 43 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 43 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.Command));
             
             #line default
             #line hidden
             this.Write("\")\" ");
             
-            #line 43 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 43 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.Arguments));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 44 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 44 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
             
             #line default
             #line hidden
             
-            #line 45 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 45 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 if ((action.VariableReplacementMethod == VariableReplacementMethod.AfterInstallation || action.VariableReplacementMethod == VariableReplacementMethod.BeforeAndAfterInstallation) && hasConfigVariables) {
 var targetPath = action.ConfigurationVariables.First(cv => cv.OriginalName == "Installation Path").RemappedName;
 
@@ -240,116 +240,116 @@ var targetPath = action.ConfigurationVariables.First(cv => cv.OriginalName == "I
             this.Write("\r\n    # Perform token replacement after installation\r\n    &\"$(join-path $Deployer" +
                     "ToolsPath \"TokenizationScript.ps1\")\" -FilePath $");
             
-            #line 50 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 50 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(targetPath));
             
             #line default
             #line hidden
             this.Write(" -FileSpec \"");
             
-            #line 50 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 50 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.FileExtensionFilter));
             
             #line default
             #line hidden
             this.Write("\" -Values $configVariables\r\n");
             
-            #line 51 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 51 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
             
             #line default
             #line hidden
             
-            #line 52 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 52 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 } else {
             
             #line default
             #line hidden
             this.Write("    &\"$(join-path $DeployerToolsPath \"");
             
-            #line 53 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 53 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.Command));
             
             #line default
             #line hidden
             this.Write("\")\" ");
             
-            #line 53 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 53 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.Arguments));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 54 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 54 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("}\r\ncatch {\r\n    Write-output \"");
             
-            #line 57 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 57 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.DisplayName));
             
             #line default
             #line hidden
             this.Write(" failed. Error:\"\r\n    write-output $_\r\n");
             
-            #line 59 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 59 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 if (action.RollbackScripts.Any()) {
             
             #line default
             #line hidden
             this.Write("Write-output \"Executing rollback script(s)\"\r\n");
             
-            #line 61 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 61 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 if (action.IsComponent) { 
             
             #line default
             #line hidden
             this.Write("    cd $basePath\r\n");
             
-            #line 63 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 63 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
             
             #line default
             #line hidden
             
-            #line 64 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 64 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 foreach (var script in action.RollbackScripts) {
             
             #line default
             #line hidden
             this.Write("    .\\");
             
-            #line 65 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 65 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(script.Key));
             
             #line default
             #line hidden
             this.Write(".ps1 ");
             
-            #line 65 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 65 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" ", script.Value.OrderBy(rsa => rsa.Sequence).SelectMany(rsa => rsa.ConfigurationVariables).Where(s => !string.IsNullOrWhiteSpace(s.Value) && s.IsParameter).Select(s => "-" + s.RemappedName + " \"$" + s.RemappedName + "\""))));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 65 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 65 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" ", script.Value.Where(s => s.IsComponent).Select(c => $"-ComponentPath{c.Sequence} $ComponentPath{c.Sequence}"))));
             
             #line default
             #line hidden
             this.Write(" -DeployerToolsPath $DeployerToolsPath\r\n");
             
-            #line 66 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 66 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
             
             #line default
             #line hidden
             
-            #line 67 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 67 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
             
             #line default
@@ -358,7 +358,7 @@ foreach (var script in action.RollbackScripts) {
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+        #line 1 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 
 private global::Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Model.ScriptAction _actionField;
 

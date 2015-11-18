@@ -15,7 +15,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\TokenizationScript.tt"
+    #line 1 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\TokenizationScript.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
     public partial class TokenizationScript : TokenizationScriptBase
     {

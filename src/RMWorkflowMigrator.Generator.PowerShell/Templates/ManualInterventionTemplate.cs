@@ -17,7 +17,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
+    #line 1 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
     public partial class ManualInterventionTemplate : ManualInterventionTemplateBase
     {
@@ -29,28 +29,28 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Templates
         {
             this.Write("# Manual Intervention: ");
             
-            #line 6 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
+            #line 6 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(manualIntervention.DisplayName));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 7 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
+            #line 7 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
 if (manualIntervention.IsTargetGroup) {
             
             #line default
             #line hidden
             this.Write("# Group: ");
             
-            #line 8 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
+            #line 8 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(manualIntervention.Target));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 9 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
+            #line 9 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
 }
 else {
             
@@ -58,21 +58,21 @@ else {
             #line hidden
             this.Write("# User: ");
             
-            #line 11 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
+            #line 11 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(manualIntervention.Target));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 12 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
+            #line 12 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("<#\r\n");
             
-            #line 14 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
+            #line 14 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(manualIntervention.InterventionText));
             
             #line default
@@ -82,7 +82,7 @@ else {
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
+        #line 1 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ManualInterventionTemplate.tt"
 
 private global::Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Model.ScriptManualIntervention _manualInterventionField;
 

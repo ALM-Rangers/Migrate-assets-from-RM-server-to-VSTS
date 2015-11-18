@@ -20,7 +20,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+    #line 1 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
     public partial class ReleaseScriptTemplate : ReleaseScriptTemplateBase
     {
@@ -32,14 +32,14 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Templates
         {
             this.Write(" \r\n");
             
-            #line 13 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 13 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
 if (!generateInitializationScript) {
             
             #line default
             #line hidden
             this.Write("# To call this script from Release Management, use the arguments\r\n# ");
             
-            #line 15 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 15 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" ", scriptParams.Where(s => !string.IsNullOrWhiteSpace(s.Value)).Select(sp => "-" + sp.RemappedName + " \"" + sp.Value + "\""))));
             
             #line default
@@ -47,55 +47,55 @@ if (!generateInitializationScript) {
             this.Write("\r\n# Also include a value for the $DeployerToolsPath variable, and the binary drop" +
                     " location for any $ComponentPath variables.\r\nparam(\r\n");
             
-            #line 18 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 18 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
 foreach (var scriptParam in scriptParams) {
             
             #line default
             #line hidden
             this.Write("$");
             
-            #line 19 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 19 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scriptParam.RemappedName));
             
             #line default
             #line hidden
             this.Write(", # ");
             
-            #line 19 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 19 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scriptParam.Value));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 20 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 20 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
 }
             
             #line default
             #line hidden
             
-            #line 21 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 21 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
 foreach (var component in components) {
             
             #line default
             #line hidden
             this.Write("$ComponentPath");
             
-            #line 22 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 22 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(component.Sequence));
             
             #line default
             #line hidden
             this.Write(", # Path to ");
             
-            #line 22 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 22 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(component.DisplayName));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 23 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 23 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
 }
             
             #line default
@@ -103,27 +103,27 @@ foreach (var component in components) {
             this.Write("$DeployerToolsPath # The path to the folder that contains the deployment tools\r\n)" +
                     "\r\n");
             
-            #line 26 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 26 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("$basePath = (Get-Location).Path\r\n");
             
-            #line 28 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 28 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
 foreach (var action in releaseActions) {
             
             #line default
             #line hidden
             
-            #line 29 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 29 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 30 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+            #line 30 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
 }
             
             #line default
@@ -131,7 +131,7 @@ foreach (var action in releaseActions) {
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Users\daniel.mann\Source\Workspaces\ALM\vsarActive\vsarRM\main\code\POC\RMWorkflowMigrator\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
+        #line 1 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\ReleaseScriptTemplate.tt"
 
 private global::System.Collections.Generic.IEnumerable<string> _releaseActionsField;
 

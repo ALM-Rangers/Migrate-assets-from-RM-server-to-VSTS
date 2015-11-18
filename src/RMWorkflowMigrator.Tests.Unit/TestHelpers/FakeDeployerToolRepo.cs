@@ -16,7 +16,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit.TestHelpers
     {
         public Task WriteToolToDiskAsync(int deployerToolId, string diskPath)
         {
-            return Task.CompletedTask;
+            return Task.FromResult(0);
         }
     }
 }
