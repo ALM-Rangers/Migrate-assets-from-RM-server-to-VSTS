@@ -172,7 +172,7 @@ To make use of the generated PowerShell scripts and associated tools exported by
 
 The **RMWorkFlowMigrator** tool will have exported the steps within the agent based pipeline into a folder structure.  For example, if your generated scripts are located in an output folder called **C:\MigratorOutput**, the resulting structure should look similar to the following: 
 
-![Export Folder Structure](Images/HOLScreenshot7.png)
+![Export Folder Structure](Images/HOLScreenShot7.png)
  
 The method to place this folder structure under source control will be dependent on whether the VSTS Team Project is using TFVC or Git. 
 
