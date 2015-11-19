@@ -198,12 +198,12 @@ To create such a build:
 	-  Set the Artifact Name to **Scripts**
 	-  Set the Artifact Type to **Server**
 	
-    ![Build Process Screenshot](Images/HOLScreenshot2.png)
+    ![Build Process Screenshot](Images/HOLScreenShot2.png)
 	
 1. Make sure the repository is set to the repository/location where you stored your scripts
 1. Queue this new build, the script files should be copied to the artifact target location
 
-    ![Build Result Screenshot](Images/HOLScreenshot3.png)
+    ![Build Result Screenshot](Images/HOLScreenShot3.png)
 	
 ## Step 3 - Create the Release Pipeline 
 Once the script artifact, and any others you require for your product, have been built, they can be used in a release deployment. The following steps show what is required to deploy and run the script artifact.
@@ -212,7 +212,7 @@ Once the script artifact, and any others you require for your product, have been
 1. Add a new release definition (green + on left of page)
 1. Select the option for an empty deployment, this will create a definition with a single default environment and no tasks.
 
-	![Empty Release Definition Screenshot](Images/HOLScreenshot4.png)
+	![Empty Release Definition Screenshot](Images/HOLScreenShot4.png)
 	
 1.	Set the new definitions name
 1.  Click the **Default Environment** and rename it to your first stage e.g. to **Dev**
@@ -222,7 +222,7 @@ Once the script artifact, and any others you require for your product, have been
 	- Once you have defined your machines, return to the browser window showing the Release Definitions. Press the refresh button next to the **Machine Group** combo and select the newly created **Dev** machine group
 	- Set the **Destination folder** to the target location on the VM e.g. a variable for the release called **$(CopyFolder)** which is created and initialized on the **Configuration** tab
 	
-	![Release Definition With First Task Screenshot](Images/HOLScreenshot5.png)
+	![Release Definition With First Task Screenshot](Images/HOLScreenShot5.png)
 	
 1.  Press the **Add Task** button again and add the **Deploy** task '**PowerShell on Target Machines**'. This task needs to be configured to run the scripts the migration tool generated
 	- Set the **Machine Group** to **Dev**
@@ -230,7 +230,7 @@ Once the script artifact, and any others you require for your product, have been
 	- If you have chosen to store your initialisation script in source control, set the **Initialization Script** to **$(CopyFolder)\Scripts\Dev\1_Server_VSALM\InitializationScript.ps1**
 	- If you have not, or plan to override some of the variable, then set the values for the variables in the initialization script in the Advanced pane's **Session Variables**  
 
-	![Release Definition With Second Task Screenshot](Images/HOLScreenshot6.png)
+	![Release Definition With Second Task Screenshot](Images/HOLScreenShot6.png)
 
 1.  The initial **Dev** stage of the definition can now be saved.
 1.  This process of adding a task can be repeated call further exported PowerShell scripts within the same Stage to deploy to a other VMs.
