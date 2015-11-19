@@ -1,4 +1,4 @@
-## Migrate assets from RM server to VSO ##
+## Migrate assets from RM server to VSTS ##
 
 > **PREVIEW NOTICE**
 > This project is still *UNDER CONSTRUCTION*. Tooling and
