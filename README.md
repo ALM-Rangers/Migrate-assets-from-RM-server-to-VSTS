@@ -21,12 +21,14 @@ Their release templates are scripted using the RM server’s XAML based workflow
 However, since both of them leverage Powershell heavily, it is possible to at least partially migrate the data from one to the other. This project aims to provide the guidance and tooling to help you with this migration.
 
 ### Find out more ###
-- [Migration Overview](@) **COMING SOON**
-- [PowerShell Requirements and Setup](@) **COMING SOON**
-- [Migration tooling output](@) **COMING SOON**
-- [Command line walk-through](@) **COMING SOON**
-- [PowerShell Script usage walk-through](@) **COMING SOON**
+- [RM Workflow Migrator Guide](doc/RM-Workflow-Migrator-Guide.md)
+- [Lab 1 - Using the RMWorkFlowMigrator to create release scripts](Lab-1-Using-the-RMWorkFlowMigrator-to-create-release-scripts.md)
+- [Lab 2 - Using the resulting release scripts in a release pipeline](Lab-2-Using-the-resulting-release-scripts-in-a-release-pipeline.md)
+- [Intoduction to RM vNext](TBD) *COMING SOON*
+- [RM 2015 New Features](TBD) *COMING SOON*
+
+### The team ###
+Daniel Mann, Dave McKinstry, David Pitcher, Derrick Cawthon, Etienne Tremblay, Hosam Kamel, John Bergman, Josh Garverick, Josh Sommer, Niel Zeeman, Richard Albrecht, Richard Fennell, Sergio Romero, Shashank Bansal , Shaun Mullis, Stawinski Fabio, Vladimir Gusarov, William Salazar
 
 ### Notices ###
-
 Notices for certain third party software included in this solution are provided here: [Third Party Notice](ThirdPartyNotices.txt).
