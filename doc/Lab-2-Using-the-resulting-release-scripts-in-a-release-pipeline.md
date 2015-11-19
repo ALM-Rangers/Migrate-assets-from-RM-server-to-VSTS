@@ -26,15 +26,19 @@ The **RMWorkFlowMigrator** tool will have exported the steps within the agent ba
 The method to place this folder structure under source control  will be dependent on whether the VSTS Team Project is using TFVC or Git. 
 
 > **Note:** It is important to make sure that any exported tools in the **DeployerTools** folders, as well as the PowerShell script, are also checked into source control. This will not be the default behavior for a Git repo, where a standard [Visual Studio **.gitignore**](https://github.com/github/gitignore/blob/master/VisualStudio.gitignore) will exclude adding binary files. You need to make sure you specially add any excluded files as they are essential to the operation of the exported PowerShell scripts.
-  
-Also be especially aware of the **InitializationScript.PS1** file in each folder. These contain variables for the paths to the relevant **DeployerTools**,  non-encrypted parameters that we used in the Agent based pipeline, and non-initialised variables for any encrypted parameters. 
-  
-There are a number of options how these can be handled in a new pipeline:
+>
+> **Note** This lab makes an assumption that you need to extract a work-flow for each stage because the stages differ from one another. If the stages **do not differ**, the only difference is in the parameter values used in the scripts.  This means you could just create different versions of the initial script with the correct parameter values for each stage.
+
+## Step 2 - Update **InitializationScript.PS1**
+Be especially aware of the **InitializationScript.PS1** file in each folder. These contain variables for the paths to the relevant **DeployerTools**,  non-encrypted parameters that we used in the Agent based pipeline, and non-initialised variables for any encrypted parameters. 
+You will need to update this script with the corresponding values for your release before creating a build and release pipeline in VSTS. 
+
+There are a number of options on how **passwords** and **encrypted** parameters can be handled in a new pipeline:
 1. You could enter the correct values for your system, in plain text, and place them under source control - not recommended as it would mean potentially secret information being stored in source control
-1. You could provide the values for the variable shown in these files using the tools in the release pipeline. 
-1. A mixture of the two, setting non secret, rarely changing values in the file, and overriding some of the values within the release stage.
-		 
-## Step 2 - Create a build that contains the exported files 
+2. You could provide the values for the variable shown in these files using the tools in the release pipeline. 
+3. A mixture of the two, setting non secret, rarely changing values in the file, and overriding some of the values within the release stage.
+
+## Step 3 - Create a build that contains the exported files 
 The Release Management service relies on pulling artifacts to deploy, including scripts, from the output of a VSTS build. This means that the generated scripts and tools need to be added into an artifact by running an automated build that simply copies them to the artifact drop location. This mechanism has the advantage that you can version the scripts, like any other artifact, choosing to deploy an specific version as part of the a given release.
 		
 To create such a build:
@@ -54,7 +58,7 @@ To create such a build:
 
     ![Build Result Screenshot](Images/HOLScreenShot3.png)
  
-## Step 3 - Create the Release Pipeline 
+## Step 4 - Create the Release Pipeline 
 Once the script artifact, and any others you require for your product, have been built, they can be used in a release deployment. The following steps show what is required to deploy and run the script artifact.
 
 1. Connect to your VSTS instance and select the Release option on the menu at the top of the page (this will be labelled Release* while the feature is still in preview)
@@ -90,5 +94,6 @@ Once the script artifact, and any others you require for your product, have been
 By following this HOL you should now understand how to make use of the exported scripts from the **RMWorkFlowMigrator** tool.
 
 ---
-- **Dave McKinstry** is Visual Studio ALM Rangers
+- **Richard Fennell** is a Visual Studio ALM Ranger 
+- **Dave McKinstry** is Visual Studio ALM Ranger and Technical Specialist at Microsoft
 - **William H. Salazar** is a Visual Studio ALM Ranger and Sr. Consultant at InCycle Software
