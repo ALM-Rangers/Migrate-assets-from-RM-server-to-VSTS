@@ -184,10 +184,11 @@ The method to place this folder structure under source control will be dependent
 Be especially aware of the **InitializationScript.PS1** file in each folder. These contain variables for the paths to the relevant **DeployerTools**,  non-encrypted parameters that we used in the Agent based pipeline, and non-initialised variables for any encrypted parameters. 
 You will need to update this script with the corresponding values for your release before creating a build and release pipeline in VSTS. 
 
-There are a number of options on how **passwords** and **encrypted** parameters can be handled in a new pipeline:
-1. You could enter the correct values for your system, in plain text, and place them under source control - not recommended as it would mean potentially secret information being stored in source control
-2. You could provide the values for the variable shown in these files using the tools in the release pipeline. 
-3. A mixture of the two, setting non secret, rarely changing values in the file, and overriding some of the values within the release stage.
+There are a number of options on how **passwords** and **encrypted** parameters can be handled in a new pipeline
+
+1. You could enter the correct values for your system, in plain text, and place them under source control - not recommended as it would mean potentially secret information being stored in source control.
+1. You could provide the values for the variable shown in these files using the tools in the release pipeline.
+1. A mixture of the two, setting non secret, rarely changing values in the file, and overriding some of the values within the release stage.
 
 ## Step 3 - Create a build that contains the exported files 
 The Release Management service relies on pulling artifacts to deploy, including scripts, from the output of a VSTS build. This means that the generated scripts and tools need to be added into an artifact by running an automated build that simply copies them to the artifact drop location. This mechanism has the advantage that you can version the scripts, like any other artifact, choosing to deploy an specific version as part of the a given release.
