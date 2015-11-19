@@ -22,8 +22,8 @@ However, since both of them leverage Powershell heavily, it is possible to at le
 
 ### Find out more ###
 - [RM Workflow Migrator Guide](doc/RM-Workflow-Migrator-Guide.md)
-- [Lab 1 - Using the RMWorkFlowMigrator to create release scripts](Lab-1-Using-the-RMWorkFlowMigrator-to-create-release-scripts.md)
-- [Lab 2 - Using the resulting release scripts in a release pipeline](Lab-2-Using-the-resulting-release-scripts-in-a-release-pipeline.md)
+- [Lab 1 - Using the RMWorkFlowMigrator to create release scripts](doc/Lab-1-Using-the-RMWorkFlowMigrator-to-create-release-scripts.md)
+- [Lab 2 - Using the resulting release scripts in a release pipeline](doc/Lab-2-Using-the-resulting-release-scripts-in-a-release-pipeline.md)
 - [Intoduction to RM vNext](TBD) *COMING SOON*
 - [RM 2015 New Features](TBD) *COMING SOON*
 
