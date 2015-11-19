@@ -8,10 +8,10 @@
 > product!
 
 ### What ###
-As Bob,the Release Manager, I would like to migrate my assets from 2015 or 2013 U4 RM server to VSO, and start using the Release hub in Team Web Access. 
+As Bob,the Release Manager, I would like to migrate my assets from 2015 or 2013 U4 RM server to VSTS, and start using the Release hub in Team Web Access. 
 
 ### What about TFS? ###
-This solution currently targets VSO, but will be applicable to migration to the new RM features in TFS in a future version of TFS.
+This solution currently targets VSTS, but will be applicable to migration to the new RM features in TFS in a future version of TFS.
 
 ### Why ###
 As the new release management capabilities are going to part of TFS, and as customers are currently using the WPF client along with RM server, there is a need to help them migrate their assets into the new model. Most of these customers are using agent-based release templates. 

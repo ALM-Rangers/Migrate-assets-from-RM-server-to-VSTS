@@ -16,7 +16,7 @@ Download the 2015 version of the ALM Virtual Machine ([http://aka.ms/ALMVMs](htt
 The migration tool makes a direct, read only SQL connection to the Release Management databases.  This HOL assumes that the ALM Virtual Machine is running and that the user has logged in as a user with administrative rights; the *vsalm\brian* account is recommended for this lab.
 
 ## Step 1 - Install the migration tool on the VM 
-1. Download the binary release zip file from [the repository on GitHub](https://github.com/ALM-Rangers/Migrate-assets-from-RM-server-to-VSO).
+1. Download the binary release zip file from [the repository on GitHub](https://github.com/ALM-Rangers/Migrate-assets-from-RM-server-to-VSTS).
 1. Connect to the ALM Virtual Machine using RDP or the Hyper-V console.
 1. Login as the *vsalm\brian* account.
 1. Copy the ZIP file from the Hyper-V host to the desktop on the ALM VM.

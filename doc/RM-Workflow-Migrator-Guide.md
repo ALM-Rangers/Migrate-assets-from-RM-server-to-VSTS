@@ -12,7 +12,7 @@ The **RMWorkFlowMigrator** tool supports TFS 2013 Update 4 and later. The migrat
 
 ## Installation ##
 
-1.  Download the binary release zip file from [the repository on GitHub](https://github.com/ALM-Rangers/Migrate-assets-from-RM-server-to-VSO).
+1.  Download the binary release zip file from [the repository on GitHub](https://github.com/ALM-Rangers/Migrate-assets-from-RM-server-to-VSTS).
 
 2.  Unblock and unzip the zip file to a new folder on workstation (e.g. \*\*c:\*).
 
