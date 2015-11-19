@@ -158,7 +158,7 @@ To migrate a stage of a template the correct parameters need to be passed to the
 
 5. In the **Dev** folder you will find a sub-folder for each server in the stage. This will contain a number of scripts for the release process, rollback steps and initialization. There is also a **DeployerTools** folder that contains all scripts and tools referenced by the exported scripts:
 
-    ![Export Folder Screenshot](IMages/HOLScreenShot1.png)
+    ![Export Folder Screenshot](Images/HOLScreenShot1.png)
 
 6.  The export process needs to be repeated for the other two stages in the pipeline
 
