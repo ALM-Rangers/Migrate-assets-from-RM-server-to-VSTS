@@ -172,7 +172,7 @@ To make use of the generated PowerShell scripts and associated tools exported by
 
 The **RMWorkFlowMigrator** tool will have exported the steps within the agent based pipeline into a folder structure.  For example, if your generated scripts are located in an output folder called **C:\MigratorOutput**, the resulting structure should look similar to the following: 
 
-![Export Folder Structure](images/HOLScreenshot7.png)
+![Export Folder Structure](Images/HOLScreenshot7.png)
  
 The method to place this folder structure under source control will be dependent on whether the VSTS Team Project is using TFVC or Git. 
 
@@ -203,7 +203,7 @@ To create such a build:
 1. Make sure the repository is set to the repository/location where you stored your scripts
 1. Queue this new build, the script files should be copied to the artifact target location
 
-    ![Build Result Screenshot](IMages/HOLScreenshot3.png)
+    ![Build Result Screenshot](Images/HOLScreenshot3.png)
 	
 ## Step 3 - Create the Release Pipeline 
 Once the script artifact, and any others you require for your product, have been built, they can be used in a release deployment. The following steps show what is required to deploy and run the script artifact.
