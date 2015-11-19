@@ -10,7 +10,7 @@ This hand on lab (HOL) is the second in a series that provides a walk through of
 ## Preparation ##
 The HOL aims to provide an overview of the process of using the PowerShell scripts generated in the first lab. Unlike the first lab in the series, it is not a complete step by step process to follow, but provides a general outline of the steps required. 
 
-If you have not done so already follow the process in [Lab 1 - Using the RMWorkFlowMigrator to create release scripts](doc/Lab 1 - Using the RMWorkFlowMigrator to create release scripts.md).
+If you have not done so already follow the process in [Lab 1 - Using the RMWorkFlowMigrator to create release scripts](Lab-1-Using-the-RMWorkFlowMigrator-to-create-release-scripts.md).
 
 Also, to complete these steps you will need to be able to upload the scripts from the ALM VM to VSTS.  You can achieve this by reconfiguring the network on the VM to connect to the Internet so that it can connect to VSTS. Or you can copy the files to the Hyper-V host and upload from the host machine.
 
