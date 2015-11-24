@@ -1,4 +1,4 @@
-## Migrate assets from RM server to Visual Studio TeaM Services ##
+## Migrate assets from RM server to Visual Studio Team Services ##
 
 > **PREVIEW NOTICE**
 > This project is still *UNDER CONSTRUCTION*. Tooling and
@@ -37,7 +37,7 @@ However, since both of them leverage Powershell heavily, it is possible to parti
 - [Lab 2 - Using the resulting release scripts in a release pipeline](doc/Lab-2-Using-the-resulting-release-scripts-in-a-release-pipeline.md)
 
 ### The team ###
-Daniel Mann, Dave McKinstry, David Pitcher, Derrick Cawthon, Josh Garverick, Josh Sommer, Niel Zeeman, Richard Albrecht, Richard Fennell, Shashank Bansal , Shaun Mullis, Stawinski Fabio, Vladimir Gusarov, William Salazar
+Daniel Mann, Dave McKinstry, David Pitcher, Derrick Cawthon, Josh Garverick, Josh Sommer, Niel Zeeman, Richard Albrecht, Richard Fennell, Sergio Romero, Shashank Bansal, Shaun Mullis, Stawinski Fabio, Vladimir Gusarov, William Salazar
 
 ### Notices ###
 Notices for certain third party software included in this solution are provided here: [Third Party Notice](ThirdPartyNotices.txt).
