@@ -27,7 +27,6 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
     using Parser.Model;
 
     using ApplicationInsights;
-    using ApplicationInsights.DataContracts;
     using ApplicationInsights.Extensibility;
     
    
@@ -35,7 +34,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
 
     public static class Program
     {
-        private const string ApplicationInsightsKey = "<need app insights key>";
+        private const string ApplicationInsightsKey = "<app insights key>";
 
         private static readonly Dictionary<string, bool> SupportedVersions = new Dictionary<string, bool>
         {
@@ -64,14 +63,13 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
         public static void Main(string[] args)
         {
             var telemetryClient = CreateTelemetryClient(ApplicationInsightsKey);
-            var eventDetail = new EventTelemetry("RMWorkflowMigrator");
             try
             {
                 options = GetOptions(args);
 
                 if (!string.IsNullOrEmpty(options.OutputFolder) && options.OutputFolder.Contains("\""))
                 {
-                    eventDetail.Properties.Add("DisplayParameters", "OutputPath");
+                    telemetryClient.TrackEvent("DisplayParameters/OutputPath");
 
                     Console.WriteLine("ERROR: The OutputPath (-o) parameter was provided with a trailing backslash. Please remove the trailing backslash and try again.");
                     DisplayParameters();
@@ -80,7 +78,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
 
                 if (options.LastParserState != null && options.LastParserState.Errors.Any())
                 {
-                    eventDetail.Properties.Add("DisplayParameters", "All");
+                    telemetryClient.TrackEvent("DisplayParameters/All"); 
 
                     DisplayParameters();
                     return;
@@ -96,12 +94,12 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
                     Task.WaitAll(generatorTask);
 
                     stopwatch.Stop();
-                    eventDetail.Metrics.Add("Execution Duration", stopwatch.ElapsedMilliseconds);
+                    telemetryClient.TrackEvent("Executed");
+                    telemetryClient.TrackMetric("Execution Duration", stopwatch.ElapsedMilliseconds);
                 }
             }
             finally
             {
-                telemetryClient.TrackEvent(eventDetail);
                 telemetryClient.Flush();
             }
         }
