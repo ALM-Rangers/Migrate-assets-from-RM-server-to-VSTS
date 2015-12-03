@@ -18,5 +18,5 @@ The key features you will find on the web include:
 - Starter templates for Azure-backed environments as well as templates for overall release plans
 - The ability to create environment templates for later use
 
-For further information about the Release Management service, please visit the RM documentation page at [https://msdn.microsoft.com/Library/vs/alm/Release/overview-rmpreview](https://msdn.microsoft.com/Library/vs/alm/Release/overview-rmpreview).
-You can also visit [https://msdn.microsoft.com/Library/vs/alm/Release/getting-started/understand-rm](https://msdn.microsoft.com/Library/vs/alm/Release/getting-started/understand-rm), which gives some additional examples around use cases for the Release Management service.
+For further information about the Release Management service, please visit the RM documentation page at [Release Management for VSTS preview version](https://msdn.microsoft.com/Library/vs/alm/Release/overview-rmpreview).
+You can also visit [Understanding Release Management](https://msdn.microsoft.com/Library/vs/alm/Release/getting-started/understand-rm), which gives some additional examples around use cases for the Release Management service.
