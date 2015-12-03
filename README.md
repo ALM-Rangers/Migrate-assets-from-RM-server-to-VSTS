@@ -22,8 +22,9 @@ However, since both of them leverage Powershell heavily, it is possible to parti
 
 ### Find out more ###
 
-**General**
+**Overview**
 
+- [Introduction to the Release Management service in Visual Studio Team Services](doc/Intro-to-Release-Managment-VisualStudioTeamServices.md)
 - [Announcement: Moving from the earlier version of Release management service to the new one in Visual Studio Team Services](http://blogs.msdn.com/b/visualstudioalm/archive/2015/11/19/moving-from-the-earlier-version-of-release-management-service-to-the-new-one-in-visual-studio-team-services.aspx)
 - [Release Management for VSTS preview version](https://msdn.microsoft.com/Library/vs/alm/Release/overview-rmpreview)
 - [Migrating Release Management 2013/2015 to Release Management Service](http://incyclesoftware.com/2015/11/migrating-release-management-20132015-to-release-management-service/)
