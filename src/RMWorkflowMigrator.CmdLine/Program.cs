@@ -34,7 +34,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
 
     public static class Program
     {
-        private const string ApplicationInsightsKey = "<app insights key>";
+        private const string ApplicationInsightsKey = "8493dd94-b866-47d8-ab6d-f61556fcc31a";
 
         private static readonly Dictionary<string, bool> SupportedVersions = new Dictionary<string, bool>
         {
@@ -62,11 +62,11 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
 
         public static void Main(string[] args)
         {
-            var telemetryClient = CreateTelemetryClient(ApplicationInsightsKey);
+            options = GetOptions(args);
+
+            var telemetryClient = CreateTelemetryClient(ApplicationInsightsKey, options.NoMetrics);
             try
             {
-                options = GetOptions(args);
-
                 if (!string.IsNullOrEmpty(options.OutputFolder) && options.OutputFolder.Contains("\""))
                 {
                     telemetryClient.TrackEvent("DisplayParameters/OutputPath");
@@ -276,10 +276,11 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             Console.WriteLine();
         }
 
-        private static TelemetryClient CreateTelemetryClient(string instrumentationKey)
+        private static TelemetryClient CreateTelemetryClient(string instrumentationKey, bool noMetrics)
         {
             var configuration = TelemetryConfiguration.CreateDefault();
             configuration.InstrumentationKey = instrumentationKey;
+            configuration.DisableTelemetry = noMetrics;
             return new TelemetryClient(configuration);
         }
     }
