@@ -12,6 +12,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
     using System;
     using System.Collections.Generic;
     using System.Data.SqlClient;
+    using System.Diagnostics;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -25,8 +26,16 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
     using Parser;
     using Parser.Model;
 
+    using ApplicationInsights;
+    using ApplicationInsights.Extensibility;
+    
+   
+   
+
     public static class Program
     {
+        private const string ApplicationInsightsKey = "8493dd94-b866-47d8-ab6d-f61556fcc31a";
+
         private static readonly Dictionary<string, bool> SupportedVersions = new Dictionary<string, bool>
         {
             { "12.0.21031.1", false },
@@ -55,24 +64,43 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
         {
             options = GetOptions(args);
 
-            if (!string.IsNullOrEmpty(options.OutputFolder) && options.OutputFolder.Contains("\""))
+            var telemetryClient = CreateTelemetryClient(ApplicationInsightsKey, options.NoMetrics);
+            try
             {
-                Console.WriteLine("ERROR: The OutputPath (-o) parameter was provided with a trailing backslash. Please remove the trailing backslash and try again.");
-                DisplayParameters();
-                return;
-            }
+                if (!string.IsNullOrEmpty(options.OutputFolder) && options.OutputFolder.Contains("\""))
+                {
+                    telemetryClient.TrackEvent("DisplayParameters/OutputPath");
 
-            if (options.LastParserState != null && options.LastParserState.Errors.Any())
-            {
-                DisplayParameters();
-                return;
-            }
+                    Console.WriteLine("ERROR: The OutputPath (-o) parameter was provided with a trailing backslash. Please remove the trailing backslash and try again.");
+                    DisplayParameters();
+                    return;
+                }
 
-            // Check we have at least been passed a server name
-            if (!string.IsNullOrEmpty(options.SqlServerName))
+                if (options.LastParserState != null && options.LastParserState.Errors.Any())
+                {
+                    telemetryClient.TrackEvent("DisplayParameters/All"); 
+
+                    DisplayParameters();
+                    return;
+                }
+
+                // Check we have at least been passed a server name
+                if (!string.IsNullOrEmpty(options.SqlServerName))
+                {
+                    var stopwatch = Stopwatch.StartNew();
+
+                    var generatorTask = RunGeneratorAsync();
+
+                    Task.WaitAll(generatorTask);
+
+                    stopwatch.Stop();
+                    telemetryClient.TrackEvent("Executed");
+                    telemetryClient.TrackMetric("Execution Duration", stopwatch.ElapsedMilliseconds);
+                }
+            }
+            finally
             {
-                var generatorTask = RunGeneratorAsync();
-                Task.WaitAll(generatorTask);
+                telemetryClient.Flush();
             }
         }
 
@@ -172,7 +200,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
         private static ScriptGenerator ConfigureScriptGenerator(RMVersion version)
         {
             PrintOnlyIfVerbose($"Generating the scripts for the workflow '{options.TemplateName}' stage '{options.TemplateStage}' into folder '{options.OutputFolder}'{Environment.NewLine}");
-            
+
             // make sure we have the output folder
             var fs = new FileSystem();
             fs.CreateDirectory(options.OutputFolder);
@@ -196,10 +224,10 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             var repository = new RMReleaseTemplateRepository(
                 options.ConnectionString,
                 options.TemplateName,
-                options.TemplateStage, 
+                options.TemplateStage,
                 version);
 
-            PrintOnlyIfVerbose($"{Environment.NewLine}Connecting to the DB '{options.DatabaseName}' on the SQL server '{options.SqlServerName}'"); 
+            PrintOnlyIfVerbose($"{Environment.NewLine}Connecting to the DB '{options.DatabaseName}' on the SQL server '{options.SqlServerName}'");
 
             // get the workflow
             var workflow = await repository.GetDeploymentSequence();
@@ -246,6 +274,14 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             Console.WriteLine($"CreateParameterizedScripts:\t{options.CreateParameterizedScripts}{Environment.NewLine}");
             Console.WriteLine($"Verbose:\t\t\t{options.Verbose}{Environment.NewLine}");
             Console.WriteLine();
+        }
+
+        private static TelemetryClient CreateTelemetryClient(string instrumentationKey, bool noMetrics)
+        {
+            var configuration = TelemetryConfiguration.CreateDefault();
+            configuration.InstrumentationKey = instrumentationKey;
+            configuration.DisableTelemetry = noMetrics;
+            return new TelemetryClient(configuration);
         }
     }
 }
