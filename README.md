@@ -7,6 +7,11 @@
 > feedback to help us identify issues and improve the 
 > product!
 
+|Branch|Health|
+|------|------|
+|master|![](https://almrangers.visualstudio.com/DefaultCollection/_apis/public/build/definitions/7f3cfb9a-d1cb-4e66-9d36-1af87b906fe9/83/badge)|
+|develop|![](https://almrangers.visualstudio.com/DefaultCollection/_apis/public/build/definitions/7f3cfb9a-d1cb-4e66-9d36-1af87b906fe9/85/badge)|
+
 ### What ###
 As Bob,the Release Manager, I would like to migrate my assets from 2015 or 2013 U4 RM server to Visual Studio Team Services, and start using the Release hub in Team Web Access. 
 
