@@ -21,7 +21,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
         [Option('n', "SqlServerName", Required = true, HelpText = "The name of the SqlServer server hosting the Release Management database.")]
         public string SqlServerName { get; set; }
 
-        [Option('d', "DatabaseName", Required = true, HelpText = "The name of the Release Management database.")]
+        [Option('d', "DatabaseName", Required = false, DefaultValue="ReleaseManagement", HelpText = "The name of the Release Management database.")]
         public string DatabaseName { get; set; }
 
         [Option("ConnectTimeout", Required = false, DefaultValue = 15, HelpText = "The length of time (in seconds) to wait for a connection to the SQL server before terminating the attempt and generating an error. By default timeout is 15 seconds.")]
