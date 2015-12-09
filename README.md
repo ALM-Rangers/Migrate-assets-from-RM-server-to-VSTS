@@ -22,6 +22,8 @@ However, since both of them leverage Powershell heavily, it is possible to parti
 
 ### Find out more ###
 
+[![](./doc/Images/demo.png) video](https://channel9.msdn.com/Series/Visual-Studio-ALM-Rangers-Demos/Project-Demo-Migration-of-RM-assets-from-RM-server-to-TFS)
+
 **Overview**
 
 - [Introduction to the Release Management service in Visual Studio Team Services](doc/Intro-to-Release-Managment-VisualStudioTeamServices.md)
