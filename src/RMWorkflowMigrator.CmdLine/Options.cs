@@ -45,6 +45,9 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
         [Option('v', "Verbose", DefaultValue = false, HelpText = "Prints the detailed messages to standard output.")]
         public bool Verbose { get; set; }
 
+        [Option('m', "NoMetrics", DefaultValue = false, HelpText = "Stops all metrics from being captured.")]
+        public bool NoMetrics { get; set; }
+
         public string ConnectionString
         {
             get
