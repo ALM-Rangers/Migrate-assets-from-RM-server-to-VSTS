@@ -21,7 +21,7 @@ The migration tool makes a direct, read only SQL connection to the Release Manag
 1. Login as the *vsalm\brian* account.
 1. Copy the ZIP file from the Hyper-V host to the desktop on the ALM VM.
 1. Unblock and unzip the zip file to a new folder \(e.g. **c:\migrate**\).
-1. Open a command prompt, create a directory to accept the results from the tools \(e.g., **MD \migratorOutput**\) and change directory to that folder \(e.g., **cd \migratorOutput**\).
+1. Open a command prompt, create a directory to accept the results from the tools \(e.g., **MD c:\migratorOutput**\) and change directory to that folder \(e.g., **cd c:\migratorOutput**\).
 1. Execute the **RMWorkflowMigrator.exe** executable \(e.g., **c:\migrate\RMWorkFlowMigrator.exe**\). This will display the command line usage and parameters:
 
 		C:\migrate\RMWorkflowMigrator.exe 
@@ -116,7 +116,7 @@ To migrate a stage of a template the correct parameters need to be passed to the
 	- As we will want to export a number of stages, it is a good idea to export each stage to a different output folder using -o parameter  
 4. Repeat the export with the revised parameters:
 
-        c:\migrate\RMWorkflowMigrator.exe -n . -d ReleaseManagement -t "Fabrikam Call Center"  -s Dev -v -o Dev
+        c:\migrate\RMWorkflowMigrator.exe -n . -d ReleaseManagement -t "Fabrikam Call Center"  -s Dev -v -o c:\migratorOutput\Dev
         Microsoft.ALMRangers.RMWorkflowMigrator 1.0.5795.40004
         Copyright c2015  Microsoft Corporation
         
@@ -156,14 +156,14 @@ To migrate a stage of a template the correct parameters need to be passed to the
         
         Release workflow generated	
 
-5. In the **Dev** folder you will find a sub-folder for each server in the stage. This will contain a number of scripts for the release process, rollback steps and initialization. There is also a **DeployerTools** folder that contains all scripts and tools referenced by the exported scripts:
+5. In the **c:\migratorOutput\Dev** folder you will find a sub-folder for each server in the stage. This will contain a number of scripts for the release process, rollback steps and initialization. There is also a **DeployerTools** folder that contains all scripts and tools referenced by the exported scripts:
 
     ![Export Folder Screenshot](Images/HOLScreenShot1.png)
 
 6.  The export process needs to be repeated for the other two stages in the pipeline
 
-	    c:\migrate\RMWorkflowMigrator.exe -n . -d ReleaseManagement -t "Fabrikam Call Center"  -s QA -v -o QA
-	    c:\migrate\RMWorkflowMigrator.exe -n . -d ReleaseManagement -t "Fabrikam Call Center"  -s Prod -v -o Prod
+	    c:\migrate\RMWorkflowMigrator.exe -n . -d ReleaseManagement -t "Fabrikam Call Center"  -s QA -v -o c:\migratorOutput\QA
+	    c:\migrate\RMWorkflowMigrator.exe -n . -d ReleaseManagement -t "Fabrikam Call Center"  -s Prod -v -o c:\migratorOutput\Prod
 	
 > **Note** This lab makes an assumption that you need to extract a work-flow for each stage because the stages differ from one another. If the stages **do not differ**, the only difference is in the parameter values used in the scripts.  This means you could just create different versions of the initial script with the correct parameter values for each stage.
 

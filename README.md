@@ -28,6 +28,7 @@ However, since both of them leverage Powershell heavily, it is possible to parti
 - [Announcement: Moving from the earlier version of Release management service to the new one in Visual Studio Team Services](http://blogs.msdn.com/b/visualstudioalm/archive/2015/11/19/moving-from-the-earlier-version-of-release-management-service-to-the-new-one-in-visual-studio-team-services.aspx)
 - [Release Management for VSTS preview version](https://msdn.microsoft.com/Library/vs/alm/Release/overview-rmpreview)
 - [Migrating Release Management 2013/2015 to Release Management Service](http://incyclesoftware.com/2015/11/migrating-release-management-20132015-to-release-management-service/)
+- [Architecture differences between Release Management 2013 and Release Management 2015 and Release Management (RM vNext) for Visual Studio for Team Services](doc/RMArchitecture-comparison-between-RM2013-2015-and-RMvNext-for-VSTS.md)
 
 **Guides**
 
@@ -37,6 +38,10 @@ However, since both of them leverage Powershell heavily, it is possible to parti
 
 - [Lab 1 - Using the RMWorkFlowMigrator to create release scripts](doc/Lab-1-Using-the-RMWorkFlowMigrator-to-create-release-scripts.md)
 - [Lab 2 - Using the resulting release scripts in a release pipeline](doc/Lab-2-Using-the-resulting-release-scripts-in-a-release-pipeline.md)
+
+### Collection of Information ###
+
+We do not collect any personal information when you use the migration tool. When you use the migration tool with Internet connectivity, basic usage metrics is collected to help improve our products and services, and for statistical analysis. Consult the [RM Workflow Migrator Guide](doc/RM-Workflow-Migrator-Guide.md) for options of disabling the metrics collection at run-time.
 
 ### The team ###
 Daniel Mann, Dave McKinstry, David Pitcher, Derrick Cawthon, Josh Garverick, Josh Sommer, Niel Zeeman, Richard Albrecht, Richard Fennell, Sergio Romero, Shashank Bansal, Shaun Mullis, Stawinski Fabio, Vladimir Gusarov, William Salazar
