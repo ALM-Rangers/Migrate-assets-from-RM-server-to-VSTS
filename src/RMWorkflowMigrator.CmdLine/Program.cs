@@ -26,7 +26,6 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
     using ApplicationInsights;
     using ApplicationInsights.Extensibility;
     
- 
     public static class Program
     {
         private const string ApplicationInsightsKey = "8493dd94-b866-47d8-ab6d-f61556fcc31a";
@@ -57,6 +56,8 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
 
         private static Options options;
 
+        private static long? ElapsedMilliseconds;
+
         public static void Main(string[] args)
         {
             options = GetOptions(args);
@@ -82,22 +83,29 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
                 }
 
                 // Check we have at least been passed a server name
-                if (!string.IsNullOrEmpty(options.SqlServerName))
+                if (string.IsNullOrEmpty(options.SqlServerName))
                 {
-                    var stopwatch = Stopwatch.StartNew();
-
-                    var generatorTask = RunGeneratorAsync();
-
-                    Task.WaitAll(generatorTask);
-
-                    stopwatch.Stop();
-                    telemetryClient.TrackEvent("Executed");
-                    telemetryClient.TrackMetric("Execution Duration", stopwatch.ElapsedMilliseconds);
+                    return;
                 }
+                var stopwatch = Stopwatch.StartNew();
+
+                var generatorTask = RunGeneratorAsync();
+
+                Task.WaitAll(generatorTask);
+
+                stopwatch.Stop();
+                ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+
+                telemetryClient.TrackEvent("Executed");
+                telemetryClient.TrackMetric("Execution Duration", stopwatch.ElapsedMilliseconds);
             }
             finally
             {
                 telemetryClient.Flush();
+                if (ElapsedMilliseconds.HasValue)
+                {
+                    PrintOnlyIfVerbose($"Total execution time: {ElapsedMilliseconds} ms");
+                }
             }
         }
 
