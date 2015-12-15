@@ -290,7 +290,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             configuration.DisableTelemetry = noMetrics;
 
             var telemetryClient = new TelemetryClient(configuration);
-            telemetryClient.InstrumentationKey = ApplicationInsightsKey;
+            telemetryClient.InstrumentationKey = instrumentationKey;
 
             return telemetryClient;
         }
