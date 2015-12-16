@@ -44,6 +44,8 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
 
         private string deployerToolsPath = "DeployerTools";
 
+        private string targetPathWithTemplateAndStage;
+
         public ScriptGenerator(
             IFileSystem fs, 
             IRMComponentRepository componentRepo, 
@@ -74,6 +76,11 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
         /// </returns>
         public async Task GenerateScriptAsync(DeploymentSequence sequence, string targetPath)
         {
+            if (sequence.ReleaseTemplateName != null && sequence.ReleaseTemplateStageName != null)
+            {
+                targetPath = Path.Combine(targetPath, sequence.ReleaseTemplateName, sequence.ReleaseTemplateStageName);
+            }
+
             this.deployerToolsPath = Path.Combine(targetPath, "DeployerTools");
             var tokenScriptPath = Path.Combine(this.deployerToolsPath, "TokenizationScript.ps1");
 

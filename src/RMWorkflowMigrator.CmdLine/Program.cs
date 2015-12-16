@@ -170,6 +170,8 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
                 var version = await RetrieveRmVersion();
 
                 var workflow = await RetrieveWorkflow(version);
+                workflow.ReleaseTemplateName = options.TemplateName;
+                workflow.ReleaseTemplateStageName = options.TemplateStage;
 
                 if (workflow != null)
                 {

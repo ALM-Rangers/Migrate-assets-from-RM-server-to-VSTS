@@ -25,6 +25,8 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Parser
             var sequenceName = doc.Root?.Attribute("DisplayName").Value;
             var seq = new DeploymentSequence
             {
+                ReleaseTemplateName = sequence.ReleaseTemplateName,
+                ReleaseTemplateStageName = sequence.ReleaseTemplateStageName,
                 DisplayName = sequenceName,
                 ReleaseTemplateStageId = sequence.StageId,
                 Containers = ContainerParser.ProcessContainers(doc.Root?.Elements())

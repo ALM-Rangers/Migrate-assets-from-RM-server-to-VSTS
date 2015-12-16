@@ -13,6 +13,8 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Parser.Model
 
     public class DeploymentSequence
     {
+        public string ReleaseTemplateName { get; set; }
+        public string ReleaseTemplateStageName { get; set; }
         public int ReleaseTemplateId { get; set; }
 
         public int ReleaseTemplateStageId { get; set; }

@@ -12,7 +12,8 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Model
     public class RMDeploymentSequence
     {
         public int StageId { get; set; }
-
+        public string ReleaseTemplateName { get; set; }
+        public string ReleaseTemplateStageName { get; set; }
         public string WorkflowXaml { get; set; }
     }
 }
