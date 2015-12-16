@@ -57,6 +57,7 @@
     <Compile Include="ContainerParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReleaseTemplateParser.cs" />
+    <Compile Include="UnsupportedReleaseTemplateTypeException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RMWorkflowMigrator.DataAccess\RMWorkflowMigrator.DataAccess.csproj">

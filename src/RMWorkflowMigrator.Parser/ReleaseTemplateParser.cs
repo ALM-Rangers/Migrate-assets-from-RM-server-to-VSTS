@@ -7,6 +7,7 @@
 namespace Microsoft.ALMRangers.RMWorkflowMigrator.Parser
 {
     using System.IO;
+    using System.Linq;
     using System.Xml.Linq;
     using Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Model;
     using Microsoft.ALMRangers.RMWorkflowMigrator.Parser.Model;
@@ -20,6 +21,11 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Parser
             if (doc.Root == null)
             {
                 throw new InvalidDataException("XML is not a valid release template.");
+            }
+
+            if (doc.Root.Elements(ActionParser.ActionActivity).Any())
+            {
+                throw new UnsupportedReleaseTemplateTypeException();
             }
 
             var sequenceName = doc.Root?.Attribute("DisplayName").Value;

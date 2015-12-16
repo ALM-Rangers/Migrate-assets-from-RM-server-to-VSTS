@@ -177,8 +177,18 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
                 {
                     var scriptGenerator = ConfigureScriptGenerator(version);
 
+                    DeploymentSequence sequence;
                     PrintOnlyIfVerbose("Parsing release template");
-                    var sequence = workflow.ToReleaseTemplate();
+                    try
+                    {
+                        sequence = workflow.ToReleaseTemplate();
+                    }
+                    catch (UnsupportedReleaseTemplateTypeException)
+                    {
+                        Console.WriteLine($"Error: {options.TemplateName} is a vNext template. vNext release templates are unsupported. Please refer to the documentation for guidance on migrating vNext release templates.");
+                        return;
+                    }
+
                     PrintOnlyIfVerbose("Done parsing release template");
 
                     PrintOnlyIfVerbose("Generating PowerShell");

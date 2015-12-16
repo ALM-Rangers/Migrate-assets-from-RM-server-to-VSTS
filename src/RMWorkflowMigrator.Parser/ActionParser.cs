@@ -16,7 +16,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Parser
     {
         public static EventHandler<ActionParsedEventArgs> ActionParsed;
 
-        private static readonly XName ActionActivity = XName.Get("ActionActivity", @"clr-namespace:Microsoft.TeamFoundation.Release.Workflow.Activities;assembly=Microsoft.TeamFoundation.Release.Workflow");
+        internal static readonly XName ActionActivity = XName.Get("ActionActivity", @"clr-namespace:Microsoft.TeamFoundation.Release.Workflow.Activities;assembly=Microsoft.TeamFoundation.Release.Workflow");
 
         private static readonly XName ComponentActivity = XName.Get("ComponentActivity", @"clr-namespace:Microsoft.TeamFoundation.Release.Workflow.Activities;assembly=Microsoft.TeamFoundation.Release.Workflow");
 
