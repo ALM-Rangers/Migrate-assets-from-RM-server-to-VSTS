@@ -44,8 +44,6 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
 
         private string deployerToolsPath = "DeployerTools";
 
-        private string targetPathWithTemplateAndStage;
-
         public ScriptGenerator(
             IFileSystem fs, 
             IRMComponentRepository componentRepo, 
