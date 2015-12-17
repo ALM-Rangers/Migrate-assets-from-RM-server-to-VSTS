@@ -25,6 +25,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
             foreach (var action in actions)
             {
                 action.Arguments = CleanActionParameters(action.Arguments);
+                action.Command = CleanActionParameters(action.Command);
                 CleanConfigurationValues(action.ConfigurationVariables);
                 sequence = MakeParametersUnique(action, properties, sequence);
             }
@@ -48,7 +49,12 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
                     {
                         var newVariableName = configVar.RemappedName + sequence;
                         sequence++;
-                        action.Arguments = action.Arguments?.Replace(configVar.RemappedName, newVariableName);
+                        action.Arguments = action.Arguments?.Replace($"${configVar.RemappedName}", $"${newVariableName}");
+                        var commandHasParameter = action.Command?.Contains(configVar.RemappedName);
+                        if (commandHasParameter.HasValue && commandHasParameter.Value)
+                        {
+                            action.Command = action.Command?.Replace($"${configVar.RemappedName}", $"${newVariableName}");
+                        }
                         configVar.RemappedName = newVariableName;
                     }
                 }

@@ -303,6 +303,192 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
         }
 
         [TestMethod]
+        public void Two_Identical_Parameters_That_Take_The_Different_Values_Are_Made_Unique_When_One_Is_A_Command()
+        {
+            // Arrange
+            var singleAction = new List<ScriptAction>
+                                   {
+                                       new ScriptAction
+                                           {
+
+                                               Command = "__Hello World__.exe",
+                                               Arguments = string.Empty,
+                                               ConfigurationVariables =
+                                                   new List<ConfigurationVariable>
+                                                       {
+                                                           new ConfigurationVariable
+                                                               {
+                                                                   OriginalName
+                                                                       =
+                                                                       "Hello World",
+                                                                   Value
+                                                                       =
+                                                                       "placeholder"
+                                                               }
+                                                       }
+                                           },
+                                       new ScriptAction
+                                           {
+                                               Arguments = @"-Param __Hello World__",
+                                               ConfigurationVariables =
+                                                   new List<ConfigurationVariable>
+                                                       {
+                                                           new ConfigurationVariable
+                                                               {
+                                                                   OriginalName
+                                                                       =
+                                                                       "Hello World",
+                                                                   Value
+                                                                       =
+                                                                       "Bar"
+                                                               }
+                                                       }
+                                           }
+                                   };
+
+            // Act
+            var results = UniquePropertyResolver.ResolveProperties(singleAction).ToList();
+
+            // Assert
+            Assert.AreEqual("$HelloWorld.exe", results[0].Command);
+            Assert.IsTrue(results[0].ConfigurationVariables.All(cv => cv.RemappedName == "HelloWorld"));
+            Assert.AreEqual("-Param $HelloWorld2", results[1].Arguments);
+            Assert.IsTrue(results[1].ConfigurationVariables.All(cv => cv.RemappedName == "HelloWorld2"));
+        }
+
+        [TestMethod]
+        public void Parameters_Are_Unique_Across_Both_Arguments_And_Commands()
+        {
+            // Arrange
+            var singleAction = new List<ScriptAction>
+                                   {
+                                       new ScriptAction
+                                           {
+
+                                               Command = "__Hello World__.exe",
+                                               Arguments = string.Empty,
+                                               ConfigurationVariables =
+                                                   new List<ConfigurationVariable>
+                                                       {
+                                                           new ConfigurationVariable
+                                                               {
+                                                                   OriginalName
+                                                                       =
+                                                                       "Hello World",
+                                                                   Value
+                                                                       =
+                                                                       "placeholder"
+                                                               }
+                                                       }
+                                           },
+                                           new ScriptAction
+                                           {
+
+                                               Command = "__Hello World__.exe",
+                                               Arguments = string.Empty,
+                                               ConfigurationVariables =
+                                                   new List<ConfigurationVariable>
+                                                       {
+                                                           new ConfigurationVariable
+                                                               {
+                                                                   OriginalName
+                                                                       =
+                                                                       "Hello World",
+                                                                   Value
+                                                                       =
+                                                                       "placeholder2"
+                                                               }
+                                                       }
+                                           },
+                                       new ScriptAction
+                                           {
+                                               Arguments = @"-Param __Hello World__",
+                                               ConfigurationVariables =
+                                                   new List<ConfigurationVariable>
+                                                       {
+                                                           new ConfigurationVariable
+                                                               {
+                                                                   OriginalName
+                                                                       =
+                                                                       "Hello World",
+                                                                   Value
+                                                                       =
+                                                                       "placeholder"
+                                                               }
+                                                       }
+                                           }
+                                   };
+
+            // Act
+            var results = UniquePropertyResolver.ResolveProperties(singleAction).ToList();
+
+            // Assert
+            Assert.AreEqual("$HelloWorld.exe", results[0].Command);
+            Assert.IsTrue(results[0].ConfigurationVariables.All(cv => cv.RemappedName == "HelloWorld"));
+            Assert.AreEqual("$HelloWorld2.exe", results[1].Command);
+            Assert.IsTrue(results[1].ConfigurationVariables.All(cv => cv.RemappedName == "HelloWorld2"));
+            Assert.AreEqual("-Param $HelloWorld", results[2].Arguments);
+            Assert.IsTrue(results[2].ConfigurationVariables.All(cv => cv.RemappedName == "HelloWorld"));
+        }
+
+        [TestMethod]
+        public void Text_That_Is_Not_A_Parameter_Token_Is_Not_Replaced()
+        {
+            // Arrange
+            var singleAction = new List<ScriptAction>
+                                   {
+                                       new ScriptAction
+                                           {
+                                               Command = "test",
+                                               Arguments =
+                                                   "-SomeParameter __SomeParameter__",
+                                               ConfigurationVariables =
+                                                   new List<ConfigurationVariable>
+                                                       {
+                                                           new ConfigurationVariable
+                                                               {
+                                                                   OriginalName
+                                                                       =
+                                                                       "SomeParameter",
+                                                                   Value
+                                                                       =
+                                                                       "placeholder"
+                                                               }
+                                                       }
+                                           },
+                                       new ScriptAction
+                                           {
+                                               Command = "test",
+                                               Arguments =
+                                                   "-SomeParameter __SomeParameter__",
+                                               ConfigurationVariables =
+                                                   new List<ConfigurationVariable>
+                                                       {
+                                                           new ConfigurationVariable
+                                                               {
+                                                                   OriginalName
+                                                                       =
+                                                                       "SomeParameter",
+                                                                   Value
+                                                                       =
+                                                                       "placeholder2"
+                                                               }
+                                                       }
+                                           }
+                                   };
+                                   
+        
+
+            // Act
+            var results = UniquePropertyResolver.ResolveProperties(singleAction).ToList();
+
+            // Assert
+            Assert.AreEqual("-SomeParameter $SomeParameter", results[0].Arguments);
+            Assert.AreEqual("-SomeParameter $SomeParameter2", results[1].Arguments);
+        }
+
+
+        [TestMethod]
         public void Two_Parameters_That_Take_The_Same_Value_Are_Untouched()
         {
             // Arrange
