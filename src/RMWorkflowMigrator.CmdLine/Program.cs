@@ -14,6 +14,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
     using System.Data.SqlClient;
     using System.Diagnostics;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
     using CommandLine;
@@ -60,9 +61,11 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
 
         public static void Main(string[] args)
         {
+           
             options = GetOptions(args);
 
             var telemetryClient = CreateTelemetryClient(ApplicationInsightsKey, options.NoMetrics);
+            
             try
             {
                 if (!string.IsNullOrEmpty(options.OutputFolder) && options.OutputFolder.Contains("\""))
@@ -168,38 +171,19 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             try
             {
                 var version = await RetrieveRmVersion();
-
-                var workflow = await RetrieveWorkflow(version);
-                workflow.ReleaseTemplateName = options.TemplateName;
-                workflow.ReleaseTemplateStageName = options.TemplateStage;
-
-                if (workflow != null)
+                if (options.TemplateStage == null)
                 {
-                    var scriptGenerator = ConfigureScriptGenerator(version);
-
-                    DeploymentSequence sequence;
-                    PrintOnlyIfVerbose("Parsing release template");
-                    try
+                    var releaseTemplateRepo = new RMReleaseTemplateRepository(options.ConnectionString, version);
+                   
+                    var stages = await releaseTemplateRepo.GetReleaseTemplateStages(options.TemplateName);
+                    foreach (var stage in stages)
                     {
-                        sequence = workflow.ToReleaseTemplate();
+                        await RetrieveWorkflowAndGenerateScript(version, options.TemplateName, stage);
                     }
-                    catch (UnsupportedReleaseTemplateTypeException)
-                    {
-                        Console.WriteLine($"Error: {options.TemplateName} is a vNext template. vNext release templates are unsupported. Please refer to the documentation for guidance on migrating vNext release templates.");
-                        return;
-                    }
-
-                    PrintOnlyIfVerbose("Done parsing release template");
-
-                    PrintOnlyIfVerbose("Generating PowerShell");
-                    await scriptGenerator.GenerateScriptAsync(sequence, options.OutputFolder);
-                    PrintOnlyIfVerbose("Done generating PowerShell");
-
-                    Console.WriteLine($"{Environment.NewLine}Release workflow generated");
                 }
                 else
                 {
-                    Console.WriteLine($"{Environment.NewLine}No Results returned for TemplateName: '{0}' and StageName: '{1}'\n", options.TemplateName, options.TemplateStage);
+                    await RetrieveWorkflowAndGenerateScript(version, options.TemplateName, options.TemplateStage);
                 }
             }
             catch (AggregateException ae)
@@ -225,9 +209,52 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             }
         }
 
+        private static async Task<bool> RetrieveWorkflowAndGenerateScript(RMVersion version, string releaseTemplateName, string releaseTemplateStage)
+        {
+            var workflow = await RetrieveWorkflow(version, releaseTemplateName, releaseTemplateStage);
+            if (workflow != null)
+            {
+                PrintOnlyIfVerbose($"Generating the scripts for the workflow '{releaseTemplateName}' stage '{releaseTemplateStage}' into folder '{options.OutputFolder}'{Environment.NewLine}");
+                var scriptGenerator = ConfigureScriptGenerator(version);
+
+                DeploymentSequence sequence;
+                PrintOnlyIfVerbose("Parsing release template");
+                try
+                {
+                    sequence = workflow.ToReleaseTemplate();
+                }
+                catch (UnsupportedReleaseTemplateTypeException)
+                {
+                    Console.WriteLine(
+                        $"Error: {options.TemplateName} is a vNext template. vNext release templates are unsupported. Please refer to the documentation for guidance on migrating vNext release templates.");
+                    return true;
+                }
+
+                PrintOnlyIfVerbose("Done parsing release template");
+
+                PrintOnlyIfVerbose("Generating PowerShell");
+                await scriptGenerator.GenerateScriptAsync(sequence, options.OutputFolder);
+                PrintOnlyIfVerbose("Done generating PowerShell");
+
+                Console.WriteLine($"{Environment.NewLine}Release workflow generated");
+
+                scriptGenerator.ScriptGenerationNotification -= PrintGeneratorEvents;
+                ActionParser.ActionParsed -= PrintActionEvents;
+                ContainerParser.ContainerParsed -= PrintContainerEvents;
+            }
+            else
+            {
+                Console.WriteLine(
+                    $"{Environment.NewLine}No Results returned for TemplateName: '{0}' and StageName: '{1}'\n",
+                    options.TemplateName,
+                    options.TemplateStage);
+            }
+            return false;
+        }
+
         private static ScriptGenerator ConfigureScriptGenerator(RMVersion version)
         {
-            PrintOnlyIfVerbose($"Generating the scripts for the workflow '{options.TemplateName}' stage '{options.TemplateStage}' into folder '{options.OutputFolder}'{Environment.NewLine}");
+           
 
             // make sure we have the output folder
             var fs = new FileSystem();
@@ -247,18 +274,18 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             return scriptGenerator;
         }
 
-        private static async Task<RMDeploymentSequence> RetrieveWorkflow(RMVersion version)
+        private static async Task<RMDeploymentSequence> RetrieveWorkflow(RMVersion version, string releaseTemplateName, string releaseTemplateStage)
         {
             var repository = new RMReleaseTemplateRepository(
                 options.ConnectionString,
-                options.TemplateName,
-                options.TemplateStage,
                 version);
 
             PrintOnlyIfVerbose($"{Environment.NewLine}Connecting to the DB '{options.DatabaseName}' on the SQL server '{options.SqlServerName}'");
 
             // get the workflow
-            var workflow = await repository.GetDeploymentSequence();
+            var workflow = await repository.GetDeploymentSequence(releaseTemplateName, releaseTemplateStage);
+            workflow.ReleaseTemplateName = releaseTemplateName;
+            workflow.ReleaseTemplateStageName = releaseTemplateStage;
             return workflow;
         }
 

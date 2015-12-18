@@ -9,12 +9,15 @@
 
 namespace Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Interfaces
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Model;
 
     public interface IRMReleaseTemplateRepository
     {
-        Task<RMDeploymentSequence> GetDeploymentSequence();
+
+        Task<RMDeploymentSequence> GetDeploymentSequence(string releaseTemplateName, string releaseTemplateStage);
+        Task<IEnumerable<string>> GetReleaseTemplateStages(string releaseTemplateName);
     }
 }

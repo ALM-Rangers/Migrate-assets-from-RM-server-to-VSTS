@@ -33,7 +33,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
         [Option('t', "TemplateName", Required = true, HelpText = "Name of the template to export. If the name contains spaces use \"the name\"")]
         public string TemplateName { get; set; }
 
-        [Option('s', "TemplateStage", Required = true, HelpText = "Stage of the template to export. If the name contains spaces use \"the name\"")]
+        [Option('s', "TemplateStage", Required = false, DefaultValue = null, HelpText = "Stage of the template to export. If the name contains spaces use \"the name\". If omitted, the tool will extract scripts for all stages.")]
         public string TemplateStage { get; set; }
 
         [Option('o', "OutputFolder", DefaultValue = "Output", HelpText = @"The folder to output the migration PowerShell scripts to. Can be relative or absolute. If this parameter is being enclosed in quotation marks, do not include a trailing backslash. Ex: ""C:\Output"", not ""C:\Output\""")]

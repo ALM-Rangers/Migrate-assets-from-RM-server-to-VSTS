@@ -10,6 +10,7 @@
 namespace Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Repository
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
     using System.Threading.Tasks;
@@ -20,19 +21,15 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Repository
     public class RMReleaseTemplateRepository : IRMReleaseTemplateRepository
     {
         private readonly string connectionString;
-        private readonly string templateName;
-        private readonly string templateStage;
         private readonly RMVersion version;
 
-        public RMReleaseTemplateRepository(string connectionString, string templateName, string templateStage, RMVersion version)
+        public RMReleaseTemplateRepository(string connectionString, RMVersion version)
         {
             this.connectionString = connectionString;
-            this.templateName = templateName;
-            this.templateStage = templateStage;
             this.version = version;
         }
 
-        public async Task<RMDeploymentSequence> GetDeploymentSequence()
+        public async Task<RMDeploymentSequence> GetDeploymentSequence(string releaseTemplateName, string releaseTemplateStage)
         {
             var tableNamePrefix = this.version == RMVersion.Rm2015 ? "RM.tbl_" : "dbo.";
 
@@ -52,8 +49,8 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Repository
             using (var da = new SqlDataAdapter(workflowCommand))
             using (var results = new DataTable())
             {             
-                workflowCommand.Parameters.AddWithValue("@stageName", this.templateStage);
-                workflowCommand.Parameters.AddWithValue("@templateName", this.templateName);
+                workflowCommand.Parameters.AddWithValue("@stageName", releaseTemplateStage);
+                workflowCommand.Parameters.AddWithValue("@templateName", releaseTemplateName);
 
                 await sqlConnection.OpenAsync();
 
@@ -61,7 +58,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Repository
 
                 if (results.Rows.Count == 0)
                 {
-                    throw new ArgumentException($@"Unable to locate a release template named ""{this.templateName}"" with a stage named ""{this.templateStage}"".");
+                    throw new ArgumentException($@"Unable to locate a release template named ""{releaseTemplateName}"" with a stage named ""{releaseTemplateStage}"".");
                 }
 
                 var sequence = new RMDeploymentSequence
@@ -72,6 +69,41 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Repository
 
                 return sequence;
             }   
+        }
+
+
+        public async Task<IEnumerable<string>> GetReleaseTemplateStages(string releaseTemplateName)
+        {
+
+            var tableNamePrefix = this.version == RMVersion.Rm2015 ? "RM.tbl_" : "dbo.";
+
+            var sqlQuery = $@"SELECT distinct st.name [StageName] FROM {tableNamePrefix}ApplicationVersion av
+                            inner join {tableNamePrefix}applicationversionstage avs
+	                            on avs.ApplicationVersionId = av.id
+                            inner join {tableNamePrefix}Stage s
+	                            on s.id = avs.stageid
+                            inner join {tableNamePrefix}stagetype st 
+	                            on st.id = s.stagetypeid
+                            where av.name = @templateName";
+
+            var stageNames = new List<string>();
+            using (var sqlConnection = new SqlConnection { ConnectionString = this.connectionString })
+            using (var stageNamesCommand = new SqlCommand(sqlQuery, sqlConnection))
+            {
+                stageNamesCommand.Parameters.AddWithValue("@templateName", releaseTemplateName);
+                await sqlConnection.OpenAsync();
+                
+                using (var dataReader = await stageNamesCommand.ExecuteReaderAsync())
+                {
+                    while (await dataReader.ReadAsync())
+                    {
+                        var stageName = dataReader.GetString(0); 
+                        stageNames.Add(stageName);
+                    }
+                   
+                }
+            }
+            return stageNames;
         }
     }
 }
