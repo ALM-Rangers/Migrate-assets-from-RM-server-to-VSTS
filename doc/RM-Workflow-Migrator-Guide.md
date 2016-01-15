@@ -27,16 +27,14 @@ The **RMWorkFlowMigrator** tool supports TFS 2013 Update 4 and later. The migrat
 		
 		ERROR(S):
 		  -n/--SqlServerName required option is missing.
-		  -d/--DatabaseName required option is missing.
 		  -t/--TemplateName required option is missing.
-		  -s/--TemplateStage required option is missing.
 		
 		
 		  -n, --SqlServerName                 Required. The name of the SQL Server
 		                                      hosting the Release Management database.
 		
-		  -d, --DatabaseName                  Required. The name of the Release
-		                                      Management database.
+		  -d, --DatabaseName                  (Default: ReleaseManagement) The name of
+                                              the Release Management database.
 		
 		  --ConnectTimeout                    (Default: 15) The length of time (in
 		                                      seconds) to wait for a connection to the
@@ -60,9 +58,11 @@ The **RMWorkFlowMigrator** tool supports TFS 2013 Update 4 and later. The migrat
 		  -t, --TemplateName                  Required. Name of the template to export.
 		                                      If the name contains spaces use "the name"
 		
-		  -s, --TemplateStage                 Required. Stage of the template to
-		                                      export. If the name contains spaces use
-		                                      "the name"
+		  -s, --TemplateStage                 (Default: ) Stage of the template to
+                                              export. If the name contains spaces use
+                                              "the name". If omitted, the tool will
+                                              extract scripts for all stages.
+
 		
 		  -o, --OutputFolder                  (Default: Output) The folder to output
 		                                      the migration PowerShell scripts to. Can
@@ -92,11 +92,11 @@ The **RMWorkFlowMigrator** tool supports TFS 2013 Update 4 and later. The migrat
 
 ## Migrating a Release Management Template - Exporting Release Management Stages ##
 
-To migrate a stage of a template the correct parameters need to be passed to the migration tool. The migration tool requires four parameters as a minimum:
+To migrate all stages of a release template, the correct parameters need to be passed to the migration tool. The migration tool requires two parameters as a minimum:
 - The SQL server name \(i.e., "-n"\)
-- The DB Name \(i.e., "-d"\)
-- The Template Name \(i.e., "-t"\)
-- The Template Stage \(i.e., "-s").
+- The Release Template name \(i.e., "-t"\)
+
+To migrate a single stage of a release template, you can specify the stage with the --TemplateStage parameter, in addition to the two required values stated above.
 
 > **NOTE:** The SqlServerName parameter of **localhost** is being used in this guide to represent the SQL server name. 
 
@@ -104,16 +104,16 @@ To migrate a stage of a template the correct parameters need to be passed to the
 
 1. Enter the following command line:
 
-    RMWorkflowMigrator.exe -n . -d <RMDATABASE> -t "<RMTemplate>" -s <RMSTAGE>   
-    **Example**: RMWorkflowMigrator.exe -n . -d ReleaseManagement -t "Fabrikam Call Center" -s Dev
+    RMWorkflowMigrator.exe -n . -t "<RMTemplate>" -s <RMSTAGE>   
+    **Example**: RMWorkflowMigrator.exe -n . -t "Fabrikam Call Center" -s Dev
 
 2. This command will generate the PowerShell release scripts from the migration tool in the **.\output** folder.     
 3. Setting more parameters allows more control over the migration.
 	- As migrations can take a while depending on the complexity of the stage, it can be useful to see the progress of the migration by adding the -v verbose flag. 
-	- As we will want to export a number of stages, it is a good idea to export each stage to a different output folder using -o parameter  
+	- A folder structure will automatically be created with corresponding folders for the release template and the stage(s) being extracted.
 4. Example output using revised parameters for verbosity, output folder, etc.:
 
-        c:\migrate\RMWorkflowMigrator.exe -n . -d ReleaseManagement -t "Fabrikam Call Center"  -s Dev -v -o Dev
+        c:\migrate\RMWorkflowMigrator.exe -n . -t "Fabrikam Call Center"  -s Dev -v -o Dev
         Microsoft.ALMRangers.RMWorkflowMigrator 1.0.5795.40004
         Copyright c2015  Microsoft Corporation
     
@@ -160,10 +160,11 @@ To migrate a stage of a template the correct parameters need to be passed to the
 6. The export process needs to be repeated for the other stages in the pipeline that need to be migrated, if the work-flows are **different**.
 
 	    **Examples:**
-		c:\migrate\RMWorkflowMigrator.exe -n . -d ReleaseManagement -t "Fabrikam Call Center"  -s QA -v -o QA
-	    c:\migrate\RMWorkflowMigrator.exe -n . -d ReleaseManagement -t "Fabrikam Call Center"  -s Prod -v -o Prod
+		c:\migrate\RMWorkflowMigrator.exe -n . -t "Fabrikam Call Center"  -s QA -v -o QA
+	    c:\migrate\RMWorkflowMigrator.exe -n . -t "Fabrikam Call Center"  -s Prod -v -o Prod
 
 > **Note** You only need to extract a work-flow for each stage **if** the stages differ from one another. If the stages **do not differ**, the only difference is in the parameter values used in the scripts.  This means you could just create different versions of the initial script with the correct parameter values for each stage.
+> **Note** You can also omit the -s parameter in order for the tool to automatically extract all stages.
 
 ## Migrating a Release Management Template - Using the generated scripts in Release Management Service in VSTS
 The scripts generated by the **RMWorkflowMigrator** can be used as part of a manual deployment process or by the Release Management service in VSTS. 
