@@ -11,16 +11,17 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Parser.Model
 {
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Text.RegularExpressions;
+    using Microsoft.ALMRangers.RMWorkflowMigrator.Parser;
+    
 
     [DebuggerDisplay("{ItemType}_{DisplayName}_{Sequence}")]
     public class ReleaseActionContainer : IReleaseActionContainer<IReleaseWorkflowBlock>
     {
-        private static readonly Regex ValidFileRegex = new Regex(@"[^A-Za-z0-9 _&'@\{\}\[\],$=\!\-#\(\)%\.\+\~_]", RegexOptions.Compiled);
+        
 
         public string DisplayName { get; set; }
 
-        public string ValidFileName => ValidFileRegex.Replace(this.DisplayName, string.Empty);
+        public string ValidFileName => CommonRegex.ValidFileRegex.Replace(this.DisplayName, string.Empty);
 
         public bool DisplayNameIsMeaningful { get; set; } = true;
 

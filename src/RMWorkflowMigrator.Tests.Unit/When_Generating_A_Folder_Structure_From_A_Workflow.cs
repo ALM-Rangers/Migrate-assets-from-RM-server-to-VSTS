@@ -329,5 +329,81 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             // Assert
             Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\Template\Stage\1_Server_lab-dmann"));
         }
+
+        [TestMethod]
+        public async Task Invalid_Characters_Are_Stripped_From_Template_Name()
+        {
+            // Arrange
+            var fs = new FakeFileSystem();
+            var fakeComponentRepo = new FakeComponentRepo
+            {
+                Components =
+                                              new List<RMComponent>
+                                                  {
+                                                      new RMComponent
+                                                          {
+                                                              Id = 3981,
+                                                              WorkflowActivityId
+                                                                  =
+                                                                  Guid
+                                                                  .Parse(
+                                                                      "a122e31d-9faa-4468-b09b-2ec09ea51567")
+                                                          }
+                                                  }
+            };
+
+            var fakeUserRepo = new FakeUserRepo();
+            var fakeDeployerToolRepo = new FakeDeployerToolRepo();
+
+            var gen = new ScriptGenerator(fs, fakeComponentRepo, fakeUserRepo, fakeDeployerToolRepo);
+            var testXml =
+                @"<DeploymentSequenceActivity xmlns=""clr-namespace:Microsoft.TeamFoundation.Release.Workflow.Activities;assembly=Microsoft.TeamFoundation.Release.Workflow"" xmlns:mtrdm=""clr-namespace:Microsoft.TeamFoundation.Release.Data.Model;assembly=Microsoft.TeamFoundation.Release.Data"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:p=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"" DisplayName=""Deployment Sequence"" sap:VirtualizedContainerService.HintSize=""244.8,302.4"" mva:VisualBasic.Settings=""Assembly references and imported namespaces serialized as XML namespaces""><sap:WorkflowViewStateService.ViewState><scg:Dictionary x:TypeArguments=""x:String, x:Object""><x:Boolean x:Key=""IsExpanded"">True</x:Boolean></scg:Dictionary></sap:WorkflowViewStateService.ViewState><ServerActivity sap:VirtualizedContainerService.HintSize=""222.4,177.6"" InstanceSequenceNumber=""1"" ServerId=""19"" ServerName=""lab-dmann""><ActionActivity DisplayName=""Copy File or Folder"" sap:VirtualizedContainerService.HintSize=""200,52.8"" IsSkipped=""False"" WorkflowActivityId=""a122e31d-9faa-4468-b09b-2ec09ea51567""><ActionActivity.StageActivity><mtrdm:StageActivity ActivityDisplayName=""Copy File or Folder"" ApplyFullValidation=""False"" CanEditVariables=""True"" ComponentId=""3981"" HasPendingSecurityChanges=""False"" Id=""-835378"" IsDeletable=""True"" IsDirty=""True"" IsSerializing=""False"" IsTagBased=""0"" LinkedV2ComponentId=""0"" ServerId=""19"" ServerInstanceSequenceNumber=""1"" ServerName=""lab-dmann"" StatusId=""2"" StatusName=""Active"" WorkflowActivityId=""a122e31d-9faa-4468-b09b-2ec09ea51567""><mtrdm:StageActivity.Component><mtrdm:Component ActionTypeId=""2"" ActionTypeName=""Custom action"" ApplyFullValidation=""False"" CategoryId=""1998"" CategoryName=""Windows OS"" DeployerToolId=""0"" DeploymentMethod=""2013"" Description=""Copy file(s) or folder (wildcards can be used)"" HasPendingSecurityChanges=""False"" Id=""3981"" InMemoryStatus=""New"" IsDeletable=""True"" IsDirty=""False"" IsPublishedByMicrosoft=""True"" IsSerializing=""False"" Name=""Copy File or Folder"" StatusId=""2"" StatusName=""Active"" TeamFoundationServerId=""0"" TeamProjectCollectionId=""0"" Timeout=""5"" TypeId=""4"" TypeName=""Without source"" VariableReplacementModeId=""1"" Version=""2013""><mtrdm:Component.ConfigurationVariables><mtrdm:SortableObservableCollection x:TypeArguments=""mtrdm:ConfigurationVariable"" /></mtrdm:Component.ConfigurationVariables><mtrdm:Component.PropertyBagVariables><mtrdm:SortableObservableCollection x:TypeArguments=""mtrdm:ConfigurationVariable"" /></mtrdm:Component.PropertyBagVariables></mtrdm:Component></mtrdm:StageActivity.Component><mtrdm:StageActivity.Variables><mtrdm:ConfigurationVariable x:Name=""__ReferenceID0"" Id=""9950"" Name=""SourceFileFolder"" Value="""" /><mtrdm:ConfigurationVariable x:Name=""__ReferenceID1"" Id=""9951"" Name=""DestinationFileFolder"" Value="""" /></mtrdm:StageActivity.Variables></mtrdm:StageActivity></ActionActivity.StageActivity><ActionActivity.StageActivityVariables><x:Reference>__ReferenceID0</x:Reference><x:Reference>__ReferenceID1</x:Reference></ActionActivity.StageActivityVariables></ActionActivity></ServerActivity></DeploymentSequenceActivity>";
+            var targetPath = @"C:\RMWorkflow\";
+
+            // Act
+            var sequence = (new RMDeploymentSequence { StageId = 100, ReleaseTemplateName = "Template*Name", ReleaseTemplateStageName = "Stage", WorkflowXaml = testXml }).ToReleaseTemplate();
+            await gen.GenerateScriptAsync(sequence, targetPath);
+
+            // Assert
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\TemplateName\Stage\1_Server_lab-dmann"));
+        }
+
+        [TestMethod]
+        public async Task Invalid_Characters_Are_Stripped_From_Template_Stage()
+        {
+            // Arrange
+            var fs = new FakeFileSystem();
+            var fakeComponentRepo = new FakeComponentRepo
+            {
+                Components =
+                                              new List<RMComponent>
+                                                  {
+                                                      new RMComponent
+                                                          {
+                                                              Id = 3981,
+                                                              WorkflowActivityId
+                                                                  =
+                                                                  Guid
+                                                                  .Parse(
+                                                                      "a122e31d-9faa-4468-b09b-2ec09ea51567")
+                                                          }
+                                                  }
+            };
+
+            var fakeUserRepo = new FakeUserRepo();
+            var fakeDeployerToolRepo = new FakeDeployerToolRepo();
+
+            var gen = new ScriptGenerator(fs, fakeComponentRepo, fakeUserRepo, fakeDeployerToolRepo);
+            var testXml =
+                @"<DeploymentSequenceActivity xmlns=""clr-namespace:Microsoft.TeamFoundation.Release.Workflow.Activities;assembly=Microsoft.TeamFoundation.Release.Workflow"" xmlns:mtrdm=""clr-namespace:Microsoft.TeamFoundation.Release.Data.Model;assembly=Microsoft.TeamFoundation.Release.Data"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:p=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"" DisplayName=""Deployment Sequence"" sap:VirtualizedContainerService.HintSize=""244.8,302.4"" mva:VisualBasic.Settings=""Assembly references and imported namespaces serialized as XML namespaces""><sap:WorkflowViewStateService.ViewState><scg:Dictionary x:TypeArguments=""x:String, x:Object""><x:Boolean x:Key=""IsExpanded"">True</x:Boolean></scg:Dictionary></sap:WorkflowViewStateService.ViewState><ServerActivity sap:VirtualizedContainerService.HintSize=""222.4,177.6"" InstanceSequenceNumber=""1"" ServerId=""19"" ServerName=""lab-dmann""><ActionActivity DisplayName=""Copy File or Folder"" sap:VirtualizedContainerService.HintSize=""200,52.8"" IsSkipped=""False"" WorkflowActivityId=""a122e31d-9faa-4468-b09b-2ec09ea51567""><ActionActivity.StageActivity><mtrdm:StageActivity ActivityDisplayName=""Copy File or Folder"" ApplyFullValidation=""False"" CanEditVariables=""True"" ComponentId=""3981"" HasPendingSecurityChanges=""False"" Id=""-835378"" IsDeletable=""True"" IsDirty=""True"" IsSerializing=""False"" IsTagBased=""0"" LinkedV2ComponentId=""0"" ServerId=""19"" ServerInstanceSequenceNumber=""1"" ServerName=""lab-dmann"" StatusId=""2"" StatusName=""Active"" WorkflowActivityId=""a122e31d-9faa-4468-b09b-2ec09ea51567""><mtrdm:StageActivity.Component><mtrdm:Component ActionTypeId=""2"" ActionTypeName=""Custom action"" ApplyFullValidation=""False"" CategoryId=""1998"" CategoryName=""Windows OS"" DeployerToolId=""0"" DeploymentMethod=""2013"" Description=""Copy file(s) or folder (wildcards can be used)"" HasPendingSecurityChanges=""False"" Id=""3981"" InMemoryStatus=""New"" IsDeletable=""True"" IsDirty=""False"" IsPublishedByMicrosoft=""True"" IsSerializing=""False"" Name=""Copy File or Folder"" StatusId=""2"" StatusName=""Active"" TeamFoundationServerId=""0"" TeamProjectCollectionId=""0"" Timeout=""5"" TypeId=""4"" TypeName=""Without source"" VariableReplacementModeId=""1"" Version=""2013""><mtrdm:Component.ConfigurationVariables><mtrdm:SortableObservableCollection x:TypeArguments=""mtrdm:ConfigurationVariable"" /></mtrdm:Component.ConfigurationVariables><mtrdm:Component.PropertyBagVariables><mtrdm:SortableObservableCollection x:TypeArguments=""mtrdm:ConfigurationVariable"" /></mtrdm:Component.PropertyBagVariables></mtrdm:Component></mtrdm:StageActivity.Component><mtrdm:StageActivity.Variables><mtrdm:ConfigurationVariable x:Name=""__ReferenceID0"" Id=""9950"" Name=""SourceFileFolder"" Value="""" /><mtrdm:ConfigurationVariable x:Name=""__ReferenceID1"" Id=""9951"" Name=""DestinationFileFolder"" Value="""" /></mtrdm:StageActivity.Variables></mtrdm:StageActivity></ActionActivity.StageActivity><ActionActivity.StageActivityVariables><x:Reference>__ReferenceID0</x:Reference><x:Reference>__ReferenceID1</x:Reference></ActionActivity.StageActivityVariables></ActionActivity></ServerActivity></DeploymentSequenceActivity>";
+            var targetPath = @"C:\RMWorkflow\";
+
+            // Act
+            var sequence = (new RMDeploymentSequence { StageId = 100, ReleaseTemplateName = "TemplateName", ReleaseTemplateStageName = "Stage*Name", WorkflowXaml = testXml }).ToReleaseTemplate();
+            await gen.GenerateScriptAsync(sequence, targetPath);
+
+            // Assert
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\TemplateName\StageName\1_Server_lab-dmann"));
+        }
     }
 }

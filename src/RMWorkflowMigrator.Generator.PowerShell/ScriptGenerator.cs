@@ -76,7 +76,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
         {
             if (sequence.ReleaseTemplateName != null && sequence.ReleaseTemplateStageName != null)
             {
-                targetPath = Path.Combine(targetPath, sequence.ReleaseTemplateName, sequence.ReleaseTemplateStageName);
+                targetPath = Path.Combine(targetPath, CommonRegex.ValidFileRegex.Replace(sequence.ReleaseTemplateName, string.Empty), CommonRegex.ValidFileRegex.Replace(sequence.ReleaseTemplateStageName, string.Empty));
             }
 
             this.deployerToolsPath = Path.Combine(targetPath, "DeployerTools");

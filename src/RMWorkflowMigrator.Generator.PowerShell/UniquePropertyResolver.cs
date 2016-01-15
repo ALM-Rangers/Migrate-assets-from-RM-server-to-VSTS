@@ -9,15 +9,13 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text.RegularExpressions;
     using Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Model;
     using Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Model;
+    using Microsoft.ALMRangers.RMWorkflowMigrator.Parser;
+    using Microsoft.ALMRangers.RMWorkflowMigrator.Parser.Model;
 
     public static class UniquePropertyResolver
     {
-        private static readonly Regex InvalidCharactersRegex = new Regex("[^0-9a-zA-Z_]");
-        private static readonly Regex ParameterRegex = new Regex("__(.*?)__");
-
         public static IEnumerable<ScriptAction> ResolveProperties(IEnumerable<ScriptAction> actions)
         {
             var sequence = 2;
@@ -85,7 +83,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
                 return arguments;
             }
 
-            var matches = ParameterRegex.Matches(arguments);
+            var matches = CommonRegex.ParameterRegex.Matches(arguments);
             foreach (var match in matches)
             {
                 var replacement = match.ToString().Replace("__", string.Empty);
@@ -98,7 +96,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
 
         private static string CleanInvalidCharacters(string value)
         {
-            return InvalidCharactersRegex.Replace(value, string.Empty);
+            return CommonRegex.InvalidCharactersRegex.Replace(value, string.Empty);
         }
     }
 }

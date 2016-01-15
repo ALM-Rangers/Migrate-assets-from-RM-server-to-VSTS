@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="ActionParsedEventArgs.cs" />
     <Compile Include="BlockType.cs" />
+    <Compile Include="CommonRegex.cs" />
     <Compile Include="DeploymentSequence.cs" />
     <Compile Include="IReleaseActionContainer.cs" />
     <Compile Include="IReleaseWorkflowBlock.cs" />
