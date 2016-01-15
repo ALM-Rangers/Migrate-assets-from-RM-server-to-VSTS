@@ -7,6 +7,11 @@
 > feedback to help us identify issues and improve the 
 > product!
 
+|Branch|Health|
+|------|------|
+|master|![](https://almrangers.visualstudio.com/DefaultCollection/_apis/public/build/definitions/7f3cfb9a-d1cb-4e66-9d36-1af87b906fe9/83/badge)|
+|develop|![](https://almrangers.visualstudio.com/DefaultCollection/_apis/public/build/definitions/7f3cfb9a-d1cb-4e66-9d36-1af87b906fe9/85/badge)|
+
 ### What ###
 As Bob,the Release Manager, I would like to migrate my assets from 2015 or 2013 U4 RM server to Visual Studio Team Services, and start using the Release hub in Team Web Access. 
 
@@ -21,6 +26,8 @@ The agent-based release templates authored using the WPF client used a set of fi
 However, since both of them leverage Powershell heavily, it is possible to partially migrate the data from one to the other. This project aims to provide the guidance and tooling to help you with this migration.
 
 ### Find out more ###
+
+[![](./doc/Images/demo.png) video](https://channel9.msdn.com/Series/Visual-Studio-ALM-Rangers-Demos/Project-Demo-Migration-of-RM-assets-from-RM-server-to-TFS)
 
 **Overview**
 

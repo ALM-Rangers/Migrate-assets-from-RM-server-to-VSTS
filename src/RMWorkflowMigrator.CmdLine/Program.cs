@@ -334,9 +334,12 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
         private static TelemetryClient CreateTelemetryClient(string instrumentationKey, bool noMetrics)
         {
             var configuration = TelemetryConfiguration.CreateDefault();
-            configuration.InstrumentationKey = instrumentationKey;
             configuration.DisableTelemetry = noMetrics;
-            return new TelemetryClient(configuration);
+
+            var telemetryClient = new TelemetryClient(configuration);
+            telemetryClient.InstrumentationKey = instrumentationKey;
+
+            return telemetryClient;
         }
     }
 }
