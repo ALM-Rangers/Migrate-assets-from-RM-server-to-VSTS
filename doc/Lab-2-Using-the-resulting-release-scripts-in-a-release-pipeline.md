@@ -47,7 +47,7 @@ To create such a build:
 1. Connect to your VSTS instance and select the Build option from the menu at the top of the page
 1. Add a new build definition (green + on left of page)
 1. Select the option for an empty build
-1. Add the task 'Publish Build Artifact'
+1. Add the task 'Copy and Publish Build Artifacts'
 	-  Set the contents to **\*\*\\\***
 	-  Set the Artifact Name to **Scripts**
 	-  Set the Artifact Type to **Server**
