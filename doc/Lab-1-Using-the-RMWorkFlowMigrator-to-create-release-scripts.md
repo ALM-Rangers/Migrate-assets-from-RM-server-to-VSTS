@@ -22,7 +22,7 @@ The migration tool makes a direct, read only SQL connection to the Release Manag
 1. Copy the ZIP file from the Hyper-V host to the desktop on the ALM VM.
 1. Unblock and unzip the zip file to a new folder \(e.g. **c:\migrate**\).
 1. Open a command prompt, create a directory to accept the results from the tools \(e.g., **MD c:\migratorOutput**\) and change directory to that folder \(e.g., **cd c:\migratorOutput**\).
-1. Execute the **RMWorkflowMigrator.exe** executable \(e.g., **c:\migrate\drop\RMWorkflowMigrator.CmdLine\bin\Release\RMWorkFlowMigrator.exe**\). This will display the command line usage and parameters:
+1. Execute the **RMWorkflowMigrator.exe** executable \(e.g., **c:\migrate\RMWorkFlowMigrator.exe**\). This will display the command line usage and parameters:
 
 		C:\migrate\RMWorkflowMigrator.exe 
 		
