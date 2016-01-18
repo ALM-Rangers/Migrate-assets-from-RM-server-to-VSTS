@@ -47,7 +47,7 @@ To create such a build:
 1. Connect to your VSTS instance and select the Build option from the menu at the top of the page
 1. Add a new build definition (green + on left of page)
 1. Select the option for an empty build
-1. Add the task 'Publish Build Artifact'
+1. Add the task 'Copy and Publish Build Artifacts'
 	-  Set the contents to **\*\*\\\***
 	-  Set the Artifact Name to **Scripts**
 	-  Set the Artifact Type to **Server**
@@ -68,27 +68,27 @@ Once the script artifact, and any others you require for your product, have been
 
     ![Empty Release Definition Screenshot](Images/HOLScreenShot4.png)
 	
-1.	Set the new definitions name
+1.	Set the new release definition name
 1.  Click the **Default Environment** and rename it to your first stage e.g. to **Dev**
 1.  Press the ** Add Task** button and add the **Deploy** task **Windows Machine File Copy**. Set the following settings
 	- Set the **Source** to **$(Agent.ReleaseDirectory)**
-	- Click the manage button next to the **Machine Group**. A new tab will open, create a new machine group called **Dev** this should define the target VMs to deploy too.
-	- Once you have defined your machines, return to the browser window showing the Release Definitions. Press the refresh button next to the **Machine Group** combo and select the newly created **Dev** machine group
-	- Set the **Destination folder** to the target location on the VM e.g. a variable for the release called **$(CopyFolder)** which is created and initialized on the **Configuration** tab
+	- Set the **Machines** to a comma separated list of the machine IP addresses or fully qualified domain names (FQDN) of the machines that will receive the deployment.
+	- Set the **Admin Login** and **Password** with access to the machines in this environment.  You may wish to use environment variables to abstract the actual values (e.g., **$(AdminLogin)** and **$(AdminPassword)**).  Environment variables are per-environment and can be initialized from the elipsis button next to the environment name (e.g., "Dev").
+	- Set the **Destination folder** to the target location.  Again, consider using a release or environment variable such as **$(CopyFolder)**.
 	
     ![Release Definition With First Task Screenshot](Images/HOLScreenShot5.png)
 	
 1.  Press the **Add Task** button again and add the **Deploy** task '**PowerShell on Target Machines**'. This task needs to be configured to run the scripts the migration tool generated
-	- Set the **Machine Group** to **Dev**
+	- Configure the **Machines**, **Admin Login** and **Admin Password** the same as the previous task.
 	- Set the **PowerShell Script** to run your targeted script from the deployment location e.g. **$(CopyFolder)\Scripts\Dev\1_Server_VSALM\ReleaseScript.ps1**
-	- If you have chosen to store your initialisation script in source control, set the **Initialization Script** to **$(CopyFolder)\Scripts\Dev\1_Server_VSALM\InitializationScript.ps1**
+	- If you have chosen to store your initialization script in source control, set the **Initialization Script** to **$(CopyFolder)\Scripts\Dev\1_Server_VSALM\InitializationScript.ps1**
 	- If you have not, or plan to override some of the variable, then set the values for the variables in the initialization script in the Advanced pane's **Session Variables**  
 	
     ![Release Definition With Second Task Screenshot](Images/HOLScreenShot6.png)
 	
 1.  The initial **Dev** stage of the definition can now be saved.
-1.  This process of adding a task can be repeated call further exported PowerShell scripts within the same Stage to deploy to a other VMs.
-1.  Finally further environments and stages e.g: **QA** and **Prod** can be added, each with their own series and tasks and parameters.
+1.  This process of adding a task can be repeated to call further exported PowerShell scripts within the same Stage to deploy to a other VMs.
+1.  Finally further environments and stages e.g: **QA** and **Prod** can be added, each with their own series and tasks and parameters.  You can clone the original taskto simply deployments to other environments with similar deployment workflows.
 1.  The release pipeline can now be run.
 
 ## Summary 

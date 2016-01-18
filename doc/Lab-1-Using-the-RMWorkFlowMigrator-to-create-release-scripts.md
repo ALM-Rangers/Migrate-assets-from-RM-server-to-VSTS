@@ -16,7 +16,7 @@ Download the 2015 version of the ALM Virtual Machine ([http://aka.ms/ALMVMs](htt
 The migration tool makes a direct, read only SQL connection to the Release Management databases.  This HOL assumes that the ALM Virtual Machine is running and that the user has logged in as a user with administrative rights; the *vsalm\brian* account is recommended for this lab.
 
 ## Step 1 - Install the migration tool on the VM 
-1. Download the binary release zip file from [the repository on GitHub](https://github.com/ALM-Rangers/Migrate-assets-from-RM-server-to-VSTS).
+1. Download the binary release zip file from [the repository on GitHub](https://github.com/ALM-Rangers/Migrate-assets-from-RM-server-to-VSTS/releases).
 1. Connect to the ALM Virtual Machine using RDP or the Hyper-V console.
 1. Login as the *vsalm\brian* account.
 1. Copy the ZIP file from the Hyper-V host to the desktop on the ALM VM.
@@ -82,6 +82,9 @@ The migration tool makes a direct, read only SQL connection to the Release Manag
 		
 		  -v, --Verbose                       (Default: False) Prints the detailed
 		                                      messages to standard output.
+		                                      
+		  -m, --NoMetrics                     (Default: False) Stops all metrics from
+		                                      being captured.
 		
 		  --help                              Display this help screen.
 
@@ -121,7 +124,7 @@ To migrate a single stage of a release template, you can specify the stage with 
         Release Management version detected: 14.0.23102.0 (2015 RTM)
         
         Connecting to the DB 'ReleaseManagement' on the SQL server '.'
-        Generating the scripts for the workflow 'Fabrikam Call Center' stage 'Dev' into folder 'C:\migratorOutput'
+        Generating the scripts for the workflow 'Fabrikam Call Center' stage 'Dev' into folder 'C:\migratorOutput\'
         
         Parsing release template
         Server: VSALM
@@ -155,7 +158,7 @@ To migrate a single stage of a release template, you can specify the stage with 
         Release workflow generated
         
         Connecting to the DB 'ReleaseManagement' on the SQL server '.'
-        Generating the scripts for the workflow 'Fabrikam Call Center' stage 'Prod' into folder 'C:\migratorOutput'
+        Generating the scripts for the workflow 'Fabrikam Call Center' stage 'Prod' into folder 'C:\migratorOutput\'
         
         Parsing release template
         Server: VSALM
@@ -189,7 +192,7 @@ To migrate a single stage of a release template, you can specify the stage with 
         Release workflow generated
         
         Connecting to the DB 'ReleaseManagement' on the SQL server '.'
-        Generating the scripts for the workflow 'Fabrikam Call Center' stage 'QA' into folder 'C:\migratorOutput'
+        Generating the scripts for the workflow 'Fabrikam Call Center' stage 'QA' into folder 'C:\migratorOutput\'
         
         Parsing release template
         Server: VSALM
