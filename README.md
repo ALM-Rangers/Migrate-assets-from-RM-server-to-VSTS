@@ -1,12 +1,5 @@
 ## Migrate assets from RM server to Visual Studio Team Services ##
 
-> **PREVIEW NOTICE**
-> This project is still *UNDER CONSTRUCTION*. Tooling and
-> documentation are supplied as an early preview; and may 
-> be changed without prior warning. We value your candid 
-> feedback to help us identify issues and improve the 
-> product!
-
 |Branch|Health|
 |------|------|
 |master|![](https://almrangers.visualstudio.com/DefaultCollection/_apis/public/build/definitions/7f3cfb9a-d1cb-4e66-9d36-1af87b906fe9/83/badge)|
