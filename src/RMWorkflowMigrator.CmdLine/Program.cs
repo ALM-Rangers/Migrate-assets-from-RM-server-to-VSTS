@@ -14,19 +14,20 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
     using System.Data.SqlClient;
     using System.Diagnostics;
     using System.Linq;
-    using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
+
     using CommandLine;
-    using DataAccess.Model;
-    using DataAccess.Repository;
-    using Generator.PowerShell;
-    using Generator.PowerShell.Model;
-    using Parser;
-    using Parser.Model;
-    using ApplicationInsights;
-    using ApplicationInsights.Extensibility;
-    
+
+    using Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Model;
+    using Microsoft.ALMRangers.RMWorkflowMigrator.DataAccess.Repository;
+    using Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell;
+    using Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Model;
+    using Microsoft.ALMRangers.RMWorkflowMigrator.Parser;
+    using Microsoft.ALMRangers.RMWorkflowMigrator.Parser.Model;
+    using Microsoft.ApplicationInsights;
+    using Microsoft.ApplicationInsights.Extensibility;
+
     public static class Program
     {
         private const string ApplicationInsightsKey = "8493dd94-b866-47d8-ab6d-f61556fcc31a";
@@ -57,7 +58,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
 
         private static Options options;
 
-        private static long? ElapsedMilliseconds;
+        private static long? elapsedMilliseconds;
 
         public static void Main(string[] args)
         {
@@ -97,7 +98,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
                 Task.WaitAll(generatorTask);
 
                 stopwatch.Stop();
-                ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+                elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
                 telemetryClient.TrackEvent("Executed");
                 telemetryClient.TrackMetric("Execution Duration", stopwatch.ElapsedMilliseconds);
@@ -105,9 +106,9 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             finally
             {
                 telemetryClient.Flush();
-                if (ElapsedMilliseconds.HasValue)
+                if (elapsedMilliseconds.HasValue)
                 {
-                    PrintOnlyIfVerbose($"Total execution time: {ElapsedMilliseconds} ms");
+                    PrintOnlyIfVerbose($"Total execution time: {elapsedMilliseconds} ms");
                 }
             }
         }
@@ -176,6 +177,11 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
                     var releaseTemplateRepo = new RMReleaseTemplateRepository(options.ConnectionString, version);
                    
                     var stages = await releaseTemplateRepo.GetReleaseTemplateStages(options.TemplateName);
+                    if (!stages.Any())
+                    {
+                        throw new ArgumentException($@"The release template ""{options.TemplateName}"" has no stages. Check that the release template name is spelled correctly.", nameof(options.TemplateName));
+                    }
+
                     foreach (var stage in stages)
                     {
                         await RetrieveWorkflowAndGenerateScript(version, options.TemplateName, stage);
@@ -209,7 +215,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             }
         }
 
-        private static async Task<bool> RetrieveWorkflowAndGenerateScript(RMVersion version, string releaseTemplateName, string releaseTemplateStage)
+        private static async Task RetrieveWorkflowAndGenerateScript(RMVersion version, string releaseTemplateName, string releaseTemplateStage)
         {
             var workflow = await RetrieveWorkflow(version, releaseTemplateName, releaseTemplateStage);
             if (workflow != null)
@@ -227,7 +233,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
                 {
                     Console.WriteLine(
                         $"Error: {options.TemplateName} is a vNext template. vNext release templates are unsupported. Please refer to the documentation for guidance on migrating vNext release templates.");
-                    return true;
+                    return;
                 }
 
                 PrintOnlyIfVerbose("Done parsing release template");
@@ -249,7 +255,6 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
                     options.TemplateName,
                     options.TemplateStage);
             }
-            return false;
         }
 
         private static ScriptGenerator ConfigureScriptGenerator(RMVersion version)
@@ -336,8 +341,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             var configuration = TelemetryConfiguration.CreateDefault();
             configuration.DisableTelemetry = noMetrics;
 
-            var telemetryClient = new TelemetryClient(configuration);
-            telemetryClient.InstrumentationKey = instrumentationKey;
+            var telemetryClient = new TelemetryClient(configuration) { InstrumentationKey = instrumentationKey };
 
             return telemetryClient;
         }
