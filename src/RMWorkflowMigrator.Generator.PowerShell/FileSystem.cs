@@ -38,7 +38,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
             if (errors.Any())
             {
                 throw new ScriptGeneratorException(
-                    "The script that was generated at path {path} contains syntax errors. This is likely an application bug.",
+                    $"The script that was generated at path {path} contains syntax errors. This is likely an application bug.",
                     errors.ToDictionary(error => error.Token));
             }
         }
