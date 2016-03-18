@@ -1,13 +1,16 @@
 
 THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
-
-Migrate assets from RM server to TFS 
-
-This project incorporates third party material from the projects listed below. The original copyright notice and the license under which Microsoft received such third party material are set forth below. Microsoft reserves all other rights not expressly granted, whether by implication, estoppel or otherwise.  
+Do Not Translate or Localize
 
 
-1. Command Line Parser Library
+The Migrate assets from RM server to Visual Studio Team Services project incorporates third party material from the projects listed below. The original copyright notice and the license under which Microsoft received such third party material are set forth below. Microsoft reserves all other rights not expressly granted, whether by implication, estoppel or otherwise.  
 
+
+1.	Command Line Parser Library (https://github.com/gsscoder/commandline)
+
+
+%% Command Line Parser Library NOTICES, INFORMATION, AND LICENSE BEGIN HERE
+=========================================
 The MIT License (MIT)
 
 Copyright (c) 2005 - 2015 Giacomo Stelluti Scala & Contributors
@@ -18,9 +21,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
-
-
-
+=========================================
+END OF Command Line Parser Library NOTICES, INFORMATION, AND LICENSE
 
 
