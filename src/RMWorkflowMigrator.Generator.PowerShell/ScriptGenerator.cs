@@ -365,8 +365,8 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
 
                 var rollbackScript = CreateScriptFromTemplate(
                     rollbackGroup.Value, 
-                    scriptManualInterventionElements, 
-                    rollbackGroup.Value.SelectMany(s => s.ConfigurationVariables).Distinct(), 
+                    scriptManualInterventionElements,
+                    rollbackGroup.Value.SelectMany(s => s.ConfigurationVariables).Distinct(new ConfigurationVariableEqualityComparer()),
                     false);
                 this.fs.WriteAllText(Path.Combine(targetPath, rollbackScriptName), rollbackScript);
             }

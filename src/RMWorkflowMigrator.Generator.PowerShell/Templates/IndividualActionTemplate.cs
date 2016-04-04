@@ -320,7 +320,7 @@ foreach (var script in action.RollbackScripts) {
             
             #line default
             #line hidden
-            this.Write("    .\\");
+            this.Write("     .\\");
             
             #line 65 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(script.Key));
@@ -330,7 +330,7 @@ foreach (var script in action.RollbackScripts) {
             this.Write(".ps1 ");
             
             #line 65 "C:\Users\daniel.mann\Source\Repos\Migrate-assets-from-RM-server-to-TFS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" ", script.Value.OrderBy(rsa => rsa.Sequence).SelectMany(rsa => rsa.ConfigurationVariables).Where(s => !string.IsNullOrWhiteSpace(s.Value) && s.IsParameter).Select(s => "-" + s.RemappedName + " \"$" + s.RemappedName + "\""))));
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" ", script.Value.OrderBy(rsa => rsa.Sequence).SelectMany(rsa => rsa.ConfigurationVariables).Where(s => !string.IsNullOrWhiteSpace(s.Value) && s.IsParameter).Distinct(new ConfigurationVariableEqualityComparer()).Select(s => "-" + s.RemappedName + " \"$" + s.RemappedName + "\""))));
             
             #line default
             #line hidden
