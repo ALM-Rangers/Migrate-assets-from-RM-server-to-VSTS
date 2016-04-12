@@ -55,3 +55,11 @@ Daniel Mann, Dave McKinstry, David Pitcher, Derrick Cawthon, Josh Garverick, Jos
 
 ### Notices ###
 Notices for certain third party software included in this solution are provided here: [Third Party Notice](ThirdPartyNotices.txt).
+
+###Contribute
+Contributions to Print Cards are welcome. Here is how you can contribute to Print Cards:  
+
+- Submit bugs and help us verify fixes  
+- Submit pull requests for bug fixes and features and discuss existing proposals   
+
+Please refer to [Contribution guidelines](.github/CONTRIBUTING.md) and the [Code of Conduct](.github/COC.md) for more details.
