@@ -42,7 +42,8 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             // Everything above this point is untested. U3 may work. Earlier is unlikely.
             { "12.0.31101.0", true },
             { "14.0.23102.0", true },
-            { "14.0.24712.0", true }
+            { "14.0.24712.0", true },
+            { "14.95.25118.0", true }
         };
 
         private static readonly Dictionary<string, string> VersionMapping = new Dictionary<string, string>
@@ -53,7 +54,8 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             { "12.0.30723.0", "2013 Update 3" },
             { "12.0.31101.0", "2013 Update 4" },
             { "14.0.23102.0", "2015 RTM" },
-            { "14.0.24712.0", "2015 Update 1" }
+            { "14.0.24712.0", "2015 Update 1" },
+            { "14.95.25118.0", "2015 Update 2" }
         };
 
         private static Options options;
