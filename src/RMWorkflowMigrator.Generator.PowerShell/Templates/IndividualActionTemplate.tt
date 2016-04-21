@@ -55,14 +55,14 @@ var targetPath = action.ConfigurationVariables.First(cv => cv.OriginalName == "I
 }
 catch {
     Write-output "<#=action.DisplayName#> failed. Error:"
-    write-output $_
+    Write-output $_
 <#if (action.RollbackScripts.Any()) {#>
-Write-output "Executing rollback script(s)"
+    Write-output "Executing rollback script(s)"
 <#if (action.IsComponent) { #>
     cd $basePath
 <#}#>
 <#foreach (var script in action.RollbackScripts) {#>
-     .\\<#=script.Key#>.ps1 <#=string.Join(" ", script.Value.OrderBy(rsa => rsa.Sequence).SelectMany(rsa => rsa.ConfigurationVariables).Where(s => !string.IsNullOrWhiteSpace(s.Value) && s.IsParameter).Distinct(new ConfigurationVariableEqualityComparer()).Select(s => "-" + s.RemappedName + " \"$" + s.RemappedName + "\""))#> <#=string.Join(" ", script.Value.Where(s => s.IsComponent).Select(c => $"-ComponentPath{c.Sequence} $ComponentPath{c.Sequence}"))#> -DeployerToolsPath $DeployerToolsPath
+    .\\<#=script.Key#>.ps1 <#=string.Join(" ", script.Value.OrderBy(rsa => rsa.Sequence).SelectMany(rsa => rsa.ConfigurationVariables).Where(s => !string.IsNullOrWhiteSpace(s.Value) && s.IsParameter).Distinct(new ConfigurationVariableEqualityComparer()).Select(s => "-" + s.RemappedName + " \"$" + s.RemappedName + "\""))#> <#=string.Join(" ", script.Value.Where(s => s.IsComponent).Select(c => $"-ComponentPath{c.Sequence} $ComponentPath{c.Sequence}"))#> -DeployerToolsPath $DeployerToolsPath
 <#}#>
 <#}#>
     exit 1

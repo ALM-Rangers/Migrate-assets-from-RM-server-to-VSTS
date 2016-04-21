@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="FileSystem.cs" />
     <Compile Include="IFileSystem.cs" />
+    <Compile Include="Model\RollbackActionResolutionResult.cs" />
     <Compile Include="Templates\ManualInterventionTemplate.cs">
       <DependentUpon>ManualInterventionTemplate.tt</DependentUpon>
       <AutoGen>True</AutoGen>
