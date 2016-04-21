@@ -50,8 +50,21 @@ var targetPath = action.ConfigurationVariables.First(cv => cv.OriginalName == "I
     &"$(join-path $DeployerToolsPath "TokenizationScript.ps1")" -FilePath $<#=targetPath#> -FileSpec "<#=action.FileExtensionFilter#>" -Values $configVariables
 <#}#>
 <#} else {#>
+<#if (action.Command.StartsWith("powershell")) {
+	if (action.Arguments.StartsWith(@"""&") || action.Arguments.StartsWith(@"-command ""&") || action.Arguments.StartsWith(@"-Command ""&")) {#>
+	powershell <#=action.Arguments#>
+<#}
+	else {
+		var ps1Index = action.Arguments.IndexOf(".ps1")+4;
+		var actualCommand = action.Arguments.Substring(0,ps1Index);
+		var strippedArguments = action.Arguments.Replace(actualCommand, string.Empty);
+		actualCommand = actualCommand.Replace("-command", string.Empty).Replace("-Command", string.Empty).Trim();#>
+	Invoke-Expression "& `"$(join-path $DeployerToolsPath '<#=actualCommand#>')`" <#=strippedArguments#>"
+<#}
+}
+else {#>
     &"$(join-path $DeployerToolsPath "<#=action.Command#>")" <#=action.Arguments#>
-<#}#>
+<#}}#>
 }
 catch {
     Write-output "<#=action.DisplayName#> failed. Error:"
