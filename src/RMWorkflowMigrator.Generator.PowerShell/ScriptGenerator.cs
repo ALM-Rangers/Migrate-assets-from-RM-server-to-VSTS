@@ -343,13 +343,13 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
                 Thus, we need to flatten out the list of parameters across the entire server/tag container and "uniqueify" them.
             */
             var elementsToResolve =
-                rollbackActions.SelectMany(ra => ra.Value).Union(scriptActionElements).OrderBy(s => s.Sequence);
+                rollbackActions.SelectMany(ra => ra.Value.Actions).Union(scriptActionElements).OrderBy(s => s.Sequence);
 
             UniquePropertyResolver.ResolveProperties(elementsToResolve);
 
             // Invoke the T4 template for the container and for any rollback/rollback always blocks and write them out to disk
             var rollbackParameters =
-                rollbackActions.SelectMany(s => s.Value).SelectMany(s => s.ConfigurationVariables).ToList();
+                rollbackActions.SelectMany(s => s.Value.Actions).SelectMany(s => s.ConfigurationVariables).ToList();
             var scriptParameters = scriptActionElements.SelectMany(s => s.ConfigurationVariables).ToList();
 
             var releaseScriptText = CreateScriptFromTemplate(
@@ -362,11 +362,11 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
             foreach (var rollbackGroup in rollbackActions)
             {
                 string rollbackScriptName = $"{rollbackGroup.Key}.ps1";
-
+                
                 var rollbackScript = CreateScriptFromTemplate(
-                    rollbackGroup.Value, 
-                    scriptManualInterventionElements,
-                    rollbackGroup.Value.SelectMany(s => s.ConfigurationVariables).Distinct(new ConfigurationVariableEqualityComparer()),
+                    rollbackGroup.Value.Actions, 
+                    rollbackGroup.Value.ManualInterventions,
+                    rollbackGroup.Value.Actions.SelectMany(s => s.ConfigurationVariables).Distinct(new ConfigurationVariableEqualityComparer()),
                     false);
                 this.fs.WriteAllText(Path.Combine(targetPath, rollbackScriptName), rollbackScript);
             }
@@ -396,12 +396,12 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
             }
         }
 
-        private async Task<Dictionary<string, List<ScriptAction>>> ResolveRollbackActions(
+        private async Task<Dictionary<string, RollbackActionResolutionResult>> ResolveRollbackActions(
             int stageId, 
             IEnumerable<ReleaseAction> actions, 
             IReadOnlyCollection<ScriptAction> scriptElements)
         {
-            var rollbackActions = new Dictionary<string, List<ScriptAction>>();
+            var rollbackActions = new Dictionary<string, RollbackActionResolutionResult>();
 
             // Group the rollback action parameters
             var groupedRollbackActions =
@@ -421,6 +421,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
             foreach (var rollbackGroup in groupedRollbackActions)
             {
                 var rollbackScriptActions = new List<ScriptAction>();
+                var rollbackManualInterventions = new List<ScriptManualIntervention>();
                 if (rollbackGroup.Item == null)
                 {
                     continue;
@@ -450,12 +451,19 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
                     this.ScriptGenerationNotification?.Invoke(
                         this, 
                         GetActionGenerationArgs(rollbackAction, ActionStart));
-                    var component =
-                        await this.componentRepo.GetComponentByIdAsync(rollbackAction.WorkflowActivityId, stageId);
-                    await this.deployerToolRepo.WriteToolToDiskAsync(component.DeployerToolId, this.deployerToolsPath);
-                    var action = CreateScriptAction(component, rollbackAction);
-                    action.Sequence += rollbackGroup.Item.Sequence;
-                    rollbackScriptActions.Add(action);
+                    if (rollbackAction.ItemType != BlockType.ManualIntervention)
+                    {
+                        var component =
+                            await this.componentRepo.GetComponentByIdAsync(rollbackAction.WorkflowActivityId, stageId);
+                        await this.deployerToolRepo.WriteToolToDiskAsync(component.DeployerToolId, this.deployerToolsPath);
+                        var action = CreateScriptAction(component, rollbackAction);
+                        action.Sequence += rollbackGroup.Item.Sequence;
+                        rollbackScriptActions.Add(action);
+                    }
+                    else
+                    {
+                        rollbackManualInterventions.Add(await this.CreateScriptManualIntervention((ManualIntervention)rollbackAction));
+                    }
                     this.ScriptGenerationNotification?.Invoke(this, GetActionGenerationArgs(rollbackAction, ActionEnd));
                 }
 
@@ -464,7 +472,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
                     scriptElementToAttachRollback.RollbackScripts.Add(rollbackGroup.Key, rollbackScriptActions);
                 }
 
-                rollbackActions.Add(rollbackGroup.Key, rollbackScriptActions);
+                rollbackActions.Add(rollbackGroup.Key, new RollbackActionResolutionResult { Actions = rollbackScriptActions, ManualInterventions = rollbackManualInterventions });
                 this.ScriptGenerationNotification?.Invoke(
                     this, 
                     GetContainerGenerationArgs(rollbackGroup.Item, ContainerEnd));
