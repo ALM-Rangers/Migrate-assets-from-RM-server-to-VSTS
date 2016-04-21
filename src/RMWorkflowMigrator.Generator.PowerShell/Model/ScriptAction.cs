@@ -31,6 +31,8 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell.Model
 
         public int Sequence { get; set; }
 
-        public Dictionary<string, List<ScriptAction>> RollbackScripts { get; set; } = new Dictionary<string, List<ScriptAction>>();        
+        public Dictionary<string, List<ScriptAction>> RollbackScripts { get; set; } = new Dictionary<string, List<ScriptAction>>();
+
+        public bool CommandIsExtractedTool { get; set; }  
     }
 }

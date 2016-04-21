@@ -62,6 +62,9 @@ var targetPath = action.ConfigurationVariables.First(cv => cv.OriginalName == "I
 	Invoke-Expression "& `"$(join-path $DeployerToolsPath '<#=actualCommand#>')`" <#=strippedArguments#>"
 <#}
 }
+else if (!action.CommandIsExtractedTool) {#>
+    <#=action.Command#> <#=action.Arguments#>
+<#}
 else {#>
     &"$(join-path $DeployerToolsPath "<#=action.Command#>")" <#=action.Arguments#>
 <#}}#>

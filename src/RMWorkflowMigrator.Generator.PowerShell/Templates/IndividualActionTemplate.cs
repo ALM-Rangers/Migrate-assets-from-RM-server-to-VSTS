@@ -310,18 +310,18 @@ if (action.Command.StartsWith("powershell")) {
             #line 63 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
 }
-else {
+else if (!action.CommandIsExtractedTool) {
             
             #line default
             #line hidden
-            this.Write("    &\"$(join-path $DeployerToolsPath \"");
+            this.Write("    ");
             
             #line 66 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.Command));
             
             #line default
             #line hidden
-            this.Write("\")\" ");
+            this.Write(" ");
             
             #line 66 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.Arguments));
@@ -331,66 +331,54 @@ else {
             this.Write("\r\n");
             
             #line 67 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+}
+else {
+            
+            #line default
+            #line hidden
+            this.Write("    &\"$(join-path $DeployerToolsPath \"");
+            
+            #line 69 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(action.Command));
+            
+            #line default
+            #line hidden
+            this.Write("\")\" ");
+            
+            #line 69 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(action.Arguments));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 70 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }}
             
             #line default
             #line hidden
             this.Write("}\r\ncatch {\r\n    Write-output \"");
             
-            #line 70 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 73 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(action.DisplayName));
             
             #line default
             #line hidden
             this.Write(" failed. Error:\"\r\n    Write-output $_\r\n");
             
-            #line 72 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 75 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 if (action.RollbackScripts.Any()) {
             
             #line default
             #line hidden
             this.Write("    Write-output \"Executing rollback script(s)\"\r\n");
             
-            #line 74 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            #line 77 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 if (action.IsComponent) { 
             
             #line default
             #line hidden
             this.Write("    cd $basePath\r\n");
-            
-            #line 76 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
-}
-            
-            #line default
-            #line hidden
-            
-            #line 77 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
-foreach (var script in action.RollbackScripts) {
-            
-            #line default
-            #line hidden
-            this.Write("    .\\");
-            
-            #line 78 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(script.Key));
-            
-            #line default
-            #line hidden
-            this.Write(".ps1 ");
-            
-            #line 78 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" ", script.Value.OrderBy(rsa => rsa.Sequence).SelectMany(rsa => rsa.ConfigurationVariables).Where(s => !string.IsNullOrWhiteSpace(s.Value) && s.IsParameter).Distinct(new ConfigurationVariableEqualityComparer()).Select(s => "-" + s.RemappedName + " \"$" + s.RemappedName + "\""))));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 78 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" ", script.Value.Where(s => s.IsComponent).Select(c => $"-ComponentPath{c.Sequence} $ComponentPath{c.Sequence}"))));
-            
-            #line default
-            #line hidden
-            this.Write(" -DeployerToolsPath $DeployerToolsPath\r\n");
             
             #line 79 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
@@ -399,6 +387,40 @@ foreach (var script in action.RollbackScripts) {
             #line hidden
             
             #line 80 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+foreach (var script in action.RollbackScripts) {
+            
+            #line default
+            #line hidden
+            this.Write("    .\\");
+            
+            #line 81 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(script.Key));
+            
+            #line default
+            #line hidden
+            this.Write(".ps1 ");
+            
+            #line 81 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" ", script.Value.OrderBy(rsa => rsa.Sequence).SelectMany(rsa => rsa.ConfigurationVariables).Where(s => !string.IsNullOrWhiteSpace(s.Value) && s.IsParameter).Distinct(new ConfigurationVariableEqualityComparer()).Select(s => "-" + s.RemappedName + " \"$" + s.RemappedName + "\""))));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 81 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(" ", script.Value.Where(s => s.IsComponent).Select(c => $"-ComponentPath{c.Sequence} $ComponentPath{c.Sequence}"))));
+            
+            #line default
+            #line hidden
+            this.Write(" -DeployerToolsPath $DeployerToolsPath\r\n");
+            
+            #line 82 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            
+            #line 83 "C:\Users\Administrator\Documents\GitHubVisualStudio\Migrate-assets-from-RM-server-to-VSTS\src\RMWorkflowMigrator.Generator.PowerShell\Templates\IndividualActionTemplate.tt"
 }
             
             #line default
