@@ -19,7 +19,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
         public static IEnumerable<ScriptAction> ResolveProperties(IEnumerable<ScriptAction> actions)
         {
             var sequence = 2;
-            var properties = new HashSet<Tuple<string, string>>();
+            var properties = new HashSet<Tuple<string, string, string>>();
             foreach (var action in actions)
             {
                 action.Arguments = CleanActionParameters(action.Arguments);
@@ -31,7 +31,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
             return actions;
         }
 
-        private static int MakeParametersUnique(ScriptAction action, ISet<Tuple<string, string>> properties, int sequence)
+        private static int MakeParametersUnique(ScriptAction action, ISet<Tuple<string, string, string>> properties, int sequence)
         {
             if (action.ConfigurationVariables == null)
             {
@@ -40,27 +40,43 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
 
             foreach (var configVar in action.ConfigurationVariables)
             {
-                var tuple = Tuple.Create(CleanInvalidCharacters(configVar.OriginalName), configVar.Value);
-                if (!properties.Contains(tuple))
-                {
-                    if (properties.Any(p => p.Item1 == tuple.Item1 && p.Item2 != tuple.Item2))
-                    {
-                        var newVariableName = configVar.RemappedName + sequence;
-                        sequence++;
-                        action.Arguments = action.Arguments?.Replace($"${configVar.RemappedName}", $"${newVariableName}");
-                        var commandHasParameter = action.Command?.Contains(configVar.RemappedName);
-                        if (commandHasParameter.HasValue && commandHasParameter.Value)
-                        {
-                            action.Command = action.Command?.Replace($"${configVar.RemappedName}", $"${newVariableName}");
-                        }
-                        configVar.RemappedName = newVariableName;
-                    }
-                }
+                var tuple = Tuple.Create(CleanInvalidCharacters(configVar.OriginalName), configVar.Value, configVar.RemappedName);
 
-                properties.Add(tuple);
+                // If we already have a matching variable name + value, we can reuse the remapped name of what's there
+                var match = properties.FirstOrDefault(p => p.Item1 == tuple.Item1 && p.Item2 == tuple.Item2);
+                if (match != null)
+                {
+                    UpdateRemappedVariable(action, configVar, match.Item3);
+                }
+                // If we have a matching variable name with a different value, remap it with a sequence number
+                else if (properties.Any(p => p.Item1 == tuple.Item1 && p.Item2 != tuple.Item2))
+                {
+                    var newVariableName = configVar.RemappedName + sequence;
+                    sequence++;
+                    UpdateRemappedVariable(action, configVar, newVariableName);
+                    tuple = Tuple.Create(CleanInvalidCharacters(configVar.OriginalName), configVar.Value, newVariableName);
+                    properties.Add(tuple);
+                }
+                // Otherwise, we've never seen this variable + value combo before so we can just track that we've seen it
+                else
+                {
+                    properties.Add(tuple);
+                }
+                
             }
 
             return sequence;
+        }
+
+        private static void UpdateRemappedVariable(ScriptAction action, ConfigurationVariable configVar, string newVariableName)
+        {
+            action.Arguments = action.Arguments?.Replace($"${configVar.RemappedName}", $"${newVariableName}");
+            var commandHasParameter = action.Command?.Contains(configVar.RemappedName);
+            if (commandHasParameter.HasValue && commandHasParameter.Value)
+            {
+                action.Command = action.Command?.Replace($"${configVar.RemappedName}", $"${newVariableName}");
+            }
+            configVar.RemappedName = newVariableName;
         }
 
         private static void CleanConfigurationValues(IEnumerable<ConfigurationVariable> configurationVariables)
