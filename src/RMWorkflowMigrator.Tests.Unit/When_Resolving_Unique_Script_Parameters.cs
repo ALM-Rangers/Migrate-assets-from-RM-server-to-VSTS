@@ -245,7 +245,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             Assert.IsTrue(action2.ConfigurationVariables.Any(cv => cv.RemappedName == "HelloWorld2"));
             Assert.IsTrue(action2.ConfigurationVariables.Any(cv => cv.RemappedName == "AnotherConfigToken3"));
 
-            Assert.IsTrue(action3.ConfigurationVariables.Any(cv => cv.RemappedName == "HelloWorld"));
+            Assert.IsTrue(action3.ConfigurationVariables.Any(cv => cv.RemappedName == "HelloWorld2"));
             Assert.IsTrue(action3.ConfigurationVariables.Any(cv => cv.RemappedName == "ConfigToken4"));
             Assert.IsTrue(action3.ConfigurationVariables.Any(cv => cv.RemappedName == "AnotherConfigToken5"));
         }
@@ -300,6 +300,64 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             Assert.IsTrue(results[0].ConfigurationVariables.All(cv => cv.RemappedName == "HelloWorld"));
             Assert.AreEqual("-Param $HelloWorld2", results[1].Arguments);
             Assert.IsTrue(results[1].ConfigurationVariables.All(cv => cv.RemappedName == "HelloWorld2"));
+        }
+
+        [TestMethod]
+        public void A_Set_Of_NonSequential_Identical_Parameters_That_Take_A_Combination_Of_Different_And_Same_Values_Are_Made_Unique()
+        {
+            // Arrange
+            var actions = new List<ScriptAction>
+                                   {
+                                       new ScriptAction
+                                           {
+                                               Arguments = @"-Param __Hello World__",
+                                               ConfigurationVariables =
+                                                   new List<ConfigurationVariable>
+                                                       {
+                                                           new ConfigurationVariable { OriginalName = "Hello World", Value = "placeholder" }
+                                                       }
+                                           },
+                                       new ScriptAction
+                                           {
+                                               Arguments = @"-Param __Hello World__",
+                                               ConfigurationVariables =
+                                                   new List<ConfigurationVariable>
+                                                       {
+                                                           new ConfigurationVariable { OriginalName = "Hello World", Value = "Bar" }
+                                                       }
+                                           },
+                                           new ScriptAction
+                                           {
+                                               Arguments = @"-Param __Hello World__",
+                                               ConfigurationVariables =
+                                                   new List<ConfigurationVariable>
+                                                       {
+                                                           new ConfigurationVariable { OriginalName = "Hello World", Value = "placeholder" }
+                                                       }
+                                           },
+                                       new ScriptAction
+                                           {
+                                               Arguments = @"-Param __Hello World__",
+                                               ConfigurationVariables =
+                                                   new List<ConfigurationVariable>
+                                                       {
+                                                           new ConfigurationVariable { OriginalName = "Hello World", Value = "Bar" }
+                                                       }
+                                           }
+                                   };
+
+            // Act
+            var results = UniquePropertyResolver.ResolveProperties(actions).ToList();
+
+            // Assert
+            Assert.AreEqual("-Param $HelloWorld", results[0].Arguments);
+            Assert.IsTrue(results[0].ConfigurationVariables.All(cv => cv.RemappedName == "HelloWorld"));
+            Assert.AreEqual("-Param $HelloWorld2", results[1].Arguments);
+            Assert.IsTrue(results[1].ConfigurationVariables.All(cv => cv.RemappedName == "HelloWorld2"));
+            Assert.AreEqual("-Param $HelloWorld", results[2].Arguments);
+            Assert.IsTrue(results[2].ConfigurationVariables.All(cv => cv.RemappedName == "HelloWorld"));
+            Assert.AreEqual("-Param $HelloWorld2", results[3].Arguments);
+            Assert.IsTrue(results[3].ConfigurationVariables.All(cv => cv.RemappedName == "HelloWorld2"));
         }
 
         [TestMethod]
