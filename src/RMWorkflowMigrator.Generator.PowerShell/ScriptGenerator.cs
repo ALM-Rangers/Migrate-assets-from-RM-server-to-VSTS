@@ -35,6 +35,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
         private readonly string meaninglessDisplayNameFolderFormat = "{0}_{1}";
 
         private readonly string releaseScriptName = "ReleaseScript.ps1";
+        private readonly string[] possibleToolExtensions = { ".bat", ".exe", ".com", ".cmd", string.Empty };
 
         private readonly IRMComponentRepository componentRepo;
 
@@ -327,7 +328,11 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
                 {
                     var component = await this.componentRepo.GetComponentByIdAsync(action.WorkflowActivityId, stageId);
                     await this.deployerToolRepo.WriteToolToDiskAsync(component.DeployerToolId, this.deployerToolsPath);
-                    scriptActionElements.Add(CreateScriptAction(component, action));
+                    var scriptAction = CreateScriptAction(component, action);
+                    
+                    scriptAction.CommandIsExtractedTool = possibleToolExtensions.Select(extension => this.fs.Exists(Path.Combine(this.deployerToolsPath, scriptAction.Command + extension))).Any(t=>t==true);
+                    
+                    scriptActionElements.Add(scriptAction);
                 }
 
                 this.ScriptGenerationNotification?.Invoke(this, GetActionGenerationArgs(action, ActionEnd));
@@ -458,6 +463,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
                         await this.deployerToolRepo.WriteToolToDiskAsync(component.DeployerToolId, this.deployerToolsPath);
                         var action = CreateScriptAction(component, rollbackAction);
                         action.Sequence += rollbackGroup.Item.Sequence;
+                        action.CommandIsExtractedTool = possibleToolExtensions.Select(extension => this.fs.Exists(Path.Combine(this.deployerToolsPath, action.Command + extension))).Any(t => t == true);
                         rollbackScriptActions.Add(action);
                     }
                     else
