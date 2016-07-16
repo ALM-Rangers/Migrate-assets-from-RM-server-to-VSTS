@@ -1,15 +1,18 @@
-## Migrate assets from RM server to Visual Studio Team Services ##
+## Migrate assets from RM server to Team Foundation Server and Team Services ##
 
 |Branch|Health|
 |------|------|
 |master|![](https://almrangers.visualstudio.com/DefaultCollection/_apis/public/build/definitions/7f3cfb9a-d1cb-4e66-9d36-1af87b906fe9/83/badge)|
 |develop|![](https://almrangers.visualstudio.com/DefaultCollection/_apis/public/build/definitions/7f3cfb9a-d1cb-4e66-9d36-1af87b906fe9/85/badge)|
 
+
+
 ### What ###
-As Bob,the Release Manager, I would like to migrate my assets from 2015 or 2013 U4 RM server to Visual Studio Team Services, and start using the Release hub in Team Web Access. 
+As Bob,the Release Manager, I would like to migrate my assets from 2015 or 2013 U4 RM server to Visual Studio Team Foundation Server or Team Services, and start using the Release hub in Team Web Access. 
 
 ### What about TFS? ###
-This solution currently targets Visual Studio Team Services, but will be applicable to migration to the new RM features in TFS in a future version of TFS.
+
+The release of Team Foundation Server 2015 Update 2, or higher, includes the new Release Management (RM) features. This solution targets Visual Studio Team Services and Team Foundation Server 2015 Update 2, or higher.
 
 ### Why ###
 Customers have so far been interacting with RM Server using the WPF client, configuring the release templates and managing their pipelines using the XAML based workflow system. The new release management capabilities, that are available with VS Team Services and are going to be a part of TFS in a future version of TFS, are based on a light-weight workflow system.
