@@ -44,7 +44,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             { "14.0.23102.0", true },
             { "14.0.24712.0", true },
             { "14.95.25118.0", true },
-            { "14.0.25420.1", true }
+            { "14.98.25331.0", true }
         };
 
         private static readonly Dictionary<string, string> VersionMapping = new Dictionary<string, string>
@@ -57,7 +57,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.CmdLine
             { "14.0.23102.0", "2015 RTM" },
             { "14.0.24712.0", "2015 Update 1" },
             { "14.95.25118.0", "2015 Update 2" },
-            { "14.0.25420.1", "2015 Update 3" }
+            { "14.98.25331.0", "2015 Update 3" }
 
         };
 
