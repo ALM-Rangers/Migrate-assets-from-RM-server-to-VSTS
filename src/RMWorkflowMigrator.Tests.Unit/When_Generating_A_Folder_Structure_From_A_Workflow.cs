@@ -77,9 +77,9 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             await gen.GenerateScriptAsync(sequence, targetPath);
 
             // Assert
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\1_Parallel"));
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\1_Parallel\1_Server_lab-dmann"));
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\1_Parallel\2_ServerTag_Dev"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\01_Parallel"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\01_Parallel\01_Server_lab-dmann"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\01_Parallel\02_ServerTag_Dev"));
         }
 
         [TestMethod]
@@ -136,9 +136,9 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             await gen.GenerateScriptAsync(sequence, targetPath);
 
             // Assert
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\1_Parallel"));
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\1_Parallel\1_Server_lab-dmann"));
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\1_Parallel\2_ServerTag_Dev"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\01_Parallel"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\01_Parallel\01_Server_lab-dmann"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\01_Parallel\02_ServerTag_Dev"));
         }
 
         [TestMethod]
@@ -176,7 +176,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             await gen.GenerateScriptAsync(sequence, targetPath);
 
             // Assert
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\1_Server_lab-dmann"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\01_Server_lab-dmann"));
         }
 
         [TestMethod]
@@ -224,12 +224,12 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             await gen.GenerateScriptAsync(sequence, targetPath);
 
             // Assert
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\1_Sequence_Sequence+"));
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\1_Sequence_Sequence+\1_Parallel"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\01_Sequence_Sequence+"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\01_Sequence_Sequence+\01_Parallel"));
             Assert.IsTrue(
-                fs.Directories.Contains(@"C:\RMWorkflow\1_Sequence_Sequence+\1_Parallel\1_Server_placeholderServer!#"));
+                fs.Directories.Contains(@"C:\RMWorkflow\01_Sequence_Sequence+\01_Parallel\01_Server_placeholderServer!#"));
             Assert.IsTrue(
-                fs.Directories.Contains(@"C:\RMWorkflow\1_Sequence_Sequence+\1_Parallel\2_ServerTag_placeholderTag!"));
+                fs.Directories.Contains(@"C:\RMWorkflow\01_Sequence_Sequence+\01_Parallel\02_ServerTag_placeholderTag!"));
         }
 
         [TestMethod]
@@ -286,9 +286,9 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             await gen.GenerateScriptAsync(sequence, targetPath);
 
             // Assert
-            Assert.IsTrue(fs.Files.ContainsKey(@"C:\RMWorkflow\1_Parallel\1_Server_lab-dmann\ReleaseScript.ps1"));
-            Assert.IsTrue(fs.Files.ContainsKey(@"C:\RMWorkflow\1_Parallel\1_Server_lab-dmann\2_Rollback.ps1"));
-            Assert.IsTrue(fs.Files.ContainsKey(@"C:\RMWorkflow\1_Parallel\2_ServerTag_Dev\ReleaseScript.ps1"));
+            Assert.IsTrue(fs.Files.ContainsKey(@"C:\RMWorkflow\01_Parallel\01_Server_lab-dmann\ReleaseScript.ps1"));
+            Assert.IsTrue(fs.Files.ContainsKey(@"C:\RMWorkflow\01_Parallel\01_Server_lab-dmann\02_Rollback.ps1"));
+            Assert.IsTrue(fs.Files.ContainsKey(@"C:\RMWorkflow\01_Parallel\02_ServerTag_Dev\ReleaseScript.ps1"));
             Assert.IsTrue(fs.Files.ContainsKey(@"C:\RMWorkflow\DeployerTools\TokenizationScript.ps1"));
         }
 
@@ -327,7 +327,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             await gen.GenerateScriptAsync(sequence, targetPath);
 
             // Assert
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\Template\Stage\1_Server_lab-dmann"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\Template\Stage\01_Server_lab-dmann"));
         }
 
         [TestMethod]
@@ -365,7 +365,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             await gen.GenerateScriptAsync(sequence, targetPath);
 
             // Assert
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\TemplateName\Stage\1_Server_lab-dmann"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\TemplateName\Stage\01_Server_lab-dmann"));
         }
 
         [TestMethod]
@@ -403,7 +403,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             await gen.GenerateScriptAsync(sequence, targetPath);
 
             // Assert
-            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\TemplateName\StageName\1_Server_lab-dmann"));
+            Assert.IsTrue(fs.Directories.Contains(@"C:\RMWorkflow\TemplateName\StageName\01_Server_lab-dmann"));
         }
     }
 }
