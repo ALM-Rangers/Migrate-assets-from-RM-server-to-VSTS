@@ -267,7 +267,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
                                    : this.meaninglessDisplayNameFolderFormat;
             var newPath = Path.Combine(
                 targetPath, 
-                string.Format(folderFormat, container.Sequence, container.ItemType, container.ValidFileName));
+                string.Format(folderFormat, container.Sequence.ToString("00"), container.ItemType, container.ValidFileName));
             this.fs.CreateDirectory(newPath);
 
             foreach (var subcontainer in
@@ -417,7 +417,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Generator.PowerShell
                             g.DisplayNameIsMeaningful
                                 ? this.meaningfulDisplayNameFolderFormat
                                 : this.meaninglessDisplayNameFolderFormat, 
-                            g.Sequence, 
+                            g.Sequence.ToString("00"), 
                             g.ItemType, 
                             g.DisplayName))
                     .Select(s => new { s.Key, Item = s.First() })
