@@ -37,7 +37,7 @@ try {
 
 	Write-Output ($files | select-object -expandproperty FullName)
 	$files | % {
-		$contents = Get-Content $_.FullName
+		$contents = Get-Content $_.FullName -Raw
 		$changedContents = $false
 		foreach ($key in $Values.Keys) {
 			if ($contents.Contains($key)) {
@@ -54,8 +54,7 @@ try {
 catch {
 	Write-Output $_
 	throw $_
-}
-");
+}");
             return this.GenerationEnvironment.ToString();
         }
     }
