@@ -298,7 +298,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             await scriptGenerator.GenerateScriptAsync(parsedTemplate, path);
 
             Collection<PSParseError> errors;
-            PSParser.Tokenize(fakeFs.Files["C:\\RMWorkflow\\1_Server_VSALM\\InitializationScript.ps1"], out errors);
+            PSParser.Tokenize(fakeFs.Files["C:\\RMWorkflow\\01_Server_VSALM\\InitializationScript.ps1"], out errors);
             Assert.AreEqual(0, errors.Count);
         }
 
@@ -2239,7 +2239,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             await gen.GenerateScriptAsync(sequence, targetPath);
 
             // Assert
-            Assert.IsFalse(fs.Files.ContainsKey(@"C:\RMWorkflow\1_Sequence_Sequence+\ReleaseScript.ps1"));
+            Assert.IsFalse(fs.Files.ContainsKey(@"C:\RMWorkflow\01_Sequence_Sequence+\ReleaseScript.ps1"));
         }
 
         private static void PrintEvents(object o, GenerationEventArgs args)
