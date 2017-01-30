@@ -2239,7 +2239,7 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
             await gen.GenerateScriptAsync(sequence, targetPath);
 
             // Assert
-            Assert.IsFalse(fs.Files.ContainsKey(@"C:\RMWorkflow\1_Sequence_Sequence+\ReleaseScript.ps1"));
+            Assert.IsFalse(fs.Files.ContainsKey(@"C:\RMWorkflow\01_Sequence_Sequence+\ReleaseScript.ps1"));
         }
 
         private static void PrintEvents(object o, GenerationEventArgs args)
