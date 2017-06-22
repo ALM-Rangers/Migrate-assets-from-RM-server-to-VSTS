@@ -53,6 +53,24 @@ namespace Microsoft.ALMRangers.RMWorkflowMigrator.Tests.Unit
                                                 @"\""TestValue\""", 
                                             IsParameter =
                                                 true
+                                        },
+                                    new ConfigurationVariable
+                                        {
+                                            OriginalName =
+                                                "SiteName",
+                                            Value =
+                                                @"<anotherTestCase = ""Hello World""/>",
+                                            IsParameter =
+                                                true
+                                        },
+                                    new ConfigurationVariable
+                                        {
+                                            OriginalName =
+                                                "gibberish",
+                                            Value =
+                                                @"\!\@\#\$\%\^\&\*\(\)\_\+\\\/\,",
+                                            IsParameter =
+                                                true
                                         }
                                 }
                     });

@@ -8,7 +8,7 @@
 <#@ import namespace="DataAccess.Model" #>
 <#@ import namespace="Model" #>
 <#foreach (var scriptParam in scriptParams) {#>
-$<#=scriptParam.RemappedName#> = "<#=scriptParam.Value.Replace(@"\""", @"`""")#>"
+$<#=scriptParam.RemappedName#> = '<#=scriptParam.Value#>'
 <#}#>
 <#var components = releaseActions.Where(ra => ra.IsComponent && ra.DeployerToolId != 0)?.Union(releaseActions.SelectMany(ra => ra.RollbackScripts).SelectMany(rs => rs.Value).Where(rs => rs.IsComponent && rs.DeployerToolId != 0));
 foreach (var component in components) {#>
