@@ -8,4 +8,4 @@ Changes proposed in this pull request:
 - 
 - 
 
-@ALM-Rangers/migratermtovsts 
+@ALM-Rangers/Migrate-assets-from-RM-server-to-VSTS 
