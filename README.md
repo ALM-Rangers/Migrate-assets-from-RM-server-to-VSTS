@@ -2,9 +2,7 @@
 
 ## Migrate assets from RM server to Team Foundation Server and Team Services ##
 
-|Branch|Health|
-|------|------|
-|master|![](https://almrangers.visualstudio.com/DefaultCollection/_apis/public/build/definitions/7f3cfb9a-d1cb-4e66-9d36-1af87b906fe9/83/badge)|
+![](https://almrangers.visualstudio.com/DefaultCollection/_apis/public/build/definitions/7f3cfb9a-d1cb-4e66-9d36-1af87b906fe9/83/badge)
 
 > **NOTICE** - We have deprecated this tool. It will continue to serve as an open source sample solution.
 
